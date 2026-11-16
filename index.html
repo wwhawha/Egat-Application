@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EGAT Smart Logistics | ทดลองแอปคนขับและผู้รับสินค้า</title>
+<style>
+:root{--navy:#12376e;--blue:#2057a6;--yellow:#f6c542;--bg:#f3f6fa;--ink:#182b46;--muted:#50627c;--line:#d9e3ee;--green:#117954;--red:#b62b42;--amber:#8d5d12}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Noto Sans Thai',Tahoma,Arial,sans-serif;color:var(--ink);font-size:14px}button,input,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.43;cursor:not-allowed}.top{background:var(--navy);color:white;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px max(18px,calc((100vw - 1400px)/2));flex-wrap:wrap}.brand{display:flex;align-items:center;gap:12px;font-size:18px;font-weight:850}.logo{background:var(--yellow);width:38px;height:38px;border-radius:10px;color:var(--navy);display:grid;place-items:center;font-size:24px}.hint{color:#dbe5fa;font-size:12px;font-weight:450}.mode{display:flex;gap:8px;flex-wrap:wrap}.mode button{border:1px solid #7995c6;background:transparent;color:white;padding:10px 13px;border-radius:10px;font-weight:750}.mode button.active{background:var(--yellow);color:var(--navy);border-color:var(--yellow)}.layout{max-width:1780px;margin:20px auto;padding:0 16px;display:grid;grid-template-columns:minmax(0,1fr) 410px;gap:22px;align-items:start}.panel{background:white;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 8px 30px #17345b0b}.panelhead{padding:18px 22px;background:white;border-bottom:1px solid var(--line)}h1,h2,h3{margin:0 0 8px;line-height:1.3}h1{font-size:25px}h2{font-size:19px}h3{font-size:15px}.sub{font-size:12px;color:var(--muted);line-height:1.7}.content{padding:20px}.actions{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0}.btn{border:1px solid transparent;border-radius:12px;background:var(--blue);color:white;font-weight:800;padding:12px 15px;min-height:43px;display:inline-flex;align-items:center;justify-content:center;gap:8px;line-height:1.35;box-shadow:0 2px 8px rgba(16,45,66,.08)}.btn.yellow{background:var(--yellow);color:#152c4d;border-color:#e0b73e}.btn.light{background:#dce7fb;color:#102d42;border-color:#bfd0ee}.btn.red{background:#b62b42;color:#fff;border-color:#a22439}.btn.green{background:#117954;color:#fff;border-color:#0d6546}.btn:focus-visible{outline:3px solid var(--yellow)}.card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:16px;margin-bottom:14px}.card.tint{background:#f6f9ff}.card.dark{background:linear-gradient(135deg,#18498a,#0c2e63);color:white;border:0}.dark .sub{color:#e3ebff}.row{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:11px 0;border-bottom:1px solid var(--line)}.row:last-child{border:0}.row strong{font-size:14px;text-align:right}.dark .row{border-color:#ffffff32}.dark .row span{color:#e7efff}.badge{padding:5px 9px;border-radius:100px;background:#e8f1ff;color:#17498f;font-size:11px;font-weight:800;display:inline-flex}.badge.green{background:#dff5eb;color:#08734e}.badge.warn{background:#fff2d9;color:#8f5b0e}.badge.red{background:#ffedf1;color:#ab2840}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.stat{padding:16px;border:1px solid var(--line);border-radius:12px;background:#f9fbfe}.stat b{font-size:26px;display:block;margin-top:5px}.stat small{color:var(--muted)}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:570px;font-size:12px}th,td{padding:13px 9px;text-align:left;border-bottom:1px solid var(--line)}th{background:#f6f8fd;color:#495c76}td b{color:var(--navy)}.steps{display:grid;gap:9px;margin:12px 0}.step{display:flex;gap:11px;align-items:center;padding:12px;background:#f6f9fd;border-radius:10px;border:1px solid #e2eaf4}.step.done{background:#e9f7f0;border-color:#c8e9d7}.num{background:#dbe6f8;color:#154987;border-radius:50%;width:28px;height:28px;display:grid;place-items:center;flex-shrink:0;font-weight:900}.done .num{background:#bde6d0;color:#07643e}.step span{font-size:12px;color:var(--muted);display:block}.notice{padding:12px 14px;background:#eef4fc;color:#255184;border-radius:11px;line-height:1.6;font-size:12px;margin:10px 0}.notice.warn{background:#fff3e0;color:#825411}.notice.red{background:#feeaef;color:#9b2940}.input{border:1px solid #c9d7e6;border-radius:10px;padding:12px;min-height:45px;width:100%;background:white;color:var(--ink);margin-top:6px}.field{margin:14px 0;font-size:13px;font-weight:700}.phone{background:#12263d;border:7px solid #152e46;border-radius:46px;padding:7px;max-width:410px;height:855px;box-shadow:0 17px 45px #102d4a30;margin:auto;overflow:hidden}.phonescreen{height:100%;background:var(--bg);border-radius:36px;overflow:hidden;display:flex;flex-direction:column}.phonehead{height:103px;background:#16407a;color:white;position:relative;flex-shrink:0;padding:38px 19px 13px}.island{position:absolute;left:50%;top:9px;transform:translateX(-50%);width:93px;height:23px;border-radius:50px;background:#071a2e}.phonehead b{font-size:17px}.mobilecontent{overflow:auto;padding:18px 14px 95px;flex:1}.mobilecontent h2{font-size:26px}.mobilecontent{font-size:17px;line-height:1.65}.mobilecontent h3{font-size:19px}.mobilecontent .sub{font-size:15px;color:#42536b}.mobilecontent .row{font-size:16px}.mobilecontent .row strong{font-size:16px}.mobilecontent .notice{font-size:15px}.mobilecontent .badge{font-size:14px}.mobilecontent .step span{font-size:14px}.mobilecontent .step b{font-size:16px}.mobilecontent .event{font-size:14px}.mobilecontent .btn{font-size:17px;min-height:56px}.mobilebottom button{font-size:14px;min-height:48px}.mobilecontent .field{font-size:16px}.mobilecontent .input{font-size:17px}.mobilecontent .card{padding:18px}.mobilecontent .btn{width:100%;min-height:56px;font-size:17px}.mobilecontent .actions{display:grid;gap:9px}.mobilebottom{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:white;padding:10px;border-top:1px solid var(--line);flex-shrink:0}.mobilebottom button{border:0;background:#f0f5fb;color:var(--navy);border-radius:12px;font-weight:800;padding:10px 6px;font-size:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:56px}.mobilebottom button.active{background:#d9e8fd}.progress{display:flex;gap:4px;margin:14px 0}.progress div{height:7px;flex:1;border-radius:20px;background:#e0e7ef}.progress div.done{background:#18815f}.qr{height:165px;width:165px;margin:15px auto;border:8px solid white;box-shadow:0 0 0 1px #cedbe8;background:repeating-conic-gradient(#152c4d 0% 25%,white 0% 50%) 50%/24px 24px;display:grid;place-items:center}.qr span{background:white;padding:8px 12px;font-weight:900;color:var(--navy)}.event{padding:9px 0;border-bottom:1px solid var(--line);font-size:12px}.event small{display:block;color:var(--muted);margin-top:4px}.toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}.mobiletoolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px 0}.miniBadge{display:inline-flex;align-items:center;gap:8px;background:#eef4fc;color:#173b73;border:1px solid #d1def3;border-radius:999px;padding:8px 12px;font-size:13px;font-weight:800}.switchrole{border:1px solid #bfd0ee;background:#fff;color:#12376e;border-radius:10px;padding:9px 12px;font-size:13px;font-weight:800;display:inline-flex;align-items:center;gap:8px}.icon{width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;flex-shrink:0}.icon svg{width:18px;height:18px;display:block}.securityCard{background:#f8fbff;border:1px solid #d9e5f5;border-radius:14px;padding:16px}.securityHead{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}.securityHead .shieldWrap{width:42px;height:42px;border-radius:12px;background:#e7effb;color:#12376e;display:grid;place-items:center;flex-shrink:0}.securityMeta{display:grid;gap:10px;margin:12px 0}.securityItem{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid #e2ebf7}.securityItem:last-child{border-bottom:0}.securityItem b{font-size:16px}.securityTag{display:inline-flex;align-items:center;gap:6px;background:#dff4eb;color:#0b6a4a;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:800}.securePanel{background:linear-gradient(180deg,#12376e,#0f2d55);color:#fff;border-radius:14px;padding:16px}.securePanel .sub{color:#dce7fb}.secureRow{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.14)}.secureRow:last-child{border-bottom:0}.hide{display:none!important}@media(max-width:960px){.layout{display:flex;flex-direction:column}.portal,.phonecol{width:100%}.phonecol{display:grid;place-items:center}.grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:520px){.top{padding:11px}.layout{padding:0 8px;margin:10px auto}.grid{grid-template-columns:repeat(2,1fr)}.phone{width:100%;height:min(820px,90dvh)}.content{padding:12px}}
+
+/* V10: document-and-face inspection dialogs inside the phone */
+.phonescreen{position:relative}
+.phoneAuthShade{position:absolute;inset:0;z-index:60;background:rgba(10,28,55,.76);display:flex;justify-content:center;align-items:center;padding:13px;backdrop-filter:blur(3px)}
+.phoneAuthDialog{width:100%;max-height:calc(100% - 18px);overflow:auto;background:#fff;border:1px solid #cbd9eb;border-radius:23px;box-shadow:0 20px 55px rgba(0,0,0,.30);padding:18px;color:#152a48}
+.phoneAuthDialog h2{font-size:22px;line-height:1.3;margin:0 0 6px}.phoneAuthDialog .sub{font-size:13px;line-height:1.6;color:#485c76}
+.authModalHeader{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}
+.authStepBadge{font-size:12px;font-weight:850;color:#153b7a;background:#e8f0fe;border:1px solid #cbdcf8;border-radius:99px;padding:7px 10px}
+.authX{width:34px;height:34px;border-radius:10px;border:1px solid #d6dfea;color:#223d65;background:#f6f9fe;font-size:21px;line-height:1}
+.licenseDemo{padding:15px;background:linear-gradient(140deg,#f7fafc,#ebf2fb);border:1px solid #b6cbe7;border-radius:16px;box-shadow:0 4px 13px #0d32601a;margin:15px 0}
+.licenseDemoTop{font-size:11px;color:#2b517e;font-weight:900;letter-spacing:.4px;border-bottom:1px solid #c5d3e4;padding-bottom:9px}
+.licenseDemoGrid{display:grid;grid-template-columns:65px 1fr;gap:12px;align-items:center;padding-top:12px}
+.personSilhouette{height:80px;border-radius:12px;background:#d2deed;display:grid;place-items:center;color:#255385}
+.personSilhouette svg{width:45px;height:45px}
+.licenseDemoData b{display:block;font-size:14px;line-height:1.5}.licenseDemoData small{display:block;color:#506581;font-size:11px;line-height:1.6;margin-top:5px}
+.faceScanViewport{height:198px;background:linear-gradient(160deg,#153a6e,#061a35);border-radius:18px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;margin:14px 0}
+.faceScanGuide{height:160px;width:126px;border:3px solid #7ce1c6;border-radius:48% 48% 43% 43%;box-shadow:0 0 0 300px rgba(4,13,33,.13);position:relative;display:flex;align-items:center;justify-content:center;color:#e5f8f5}
+.faceScanGuide svg{width:84px;height:84px;opacity:.82}
+.scanBeam{position:absolute;left:10px;right:10px;top:48%;height:2px;background:#8ceada;box-shadow:0 0 12px #88eadd;opacity:.85}
+.scanInfo{position:absolute;bottom:10px;left:10px;right:10px;text-align:center;color:#e5f5fa;font-size:11px;font-weight:700}
+.authCheckRows{display:grid;gap:8px;margin:12px 0}
+.authCheckRow{display:flex;gap:8px;align-items:center;color:#243d62;font-size:13px;font-weight:750}
+.authCheckRow .icon{color:#117954}
+.phoneAuthDialog .btn{min-height:51px;font-size:15px;width:100%}
+.phoneAuthDialog .actions{display:grid;gap:9px;margin-bottom:0}
+.authPrototypeNote{font-size:11px;line-height:1.6;padding:11px;background:#fff7e6;border:1px solid #f6e0ab;color:#755418;border-radius:12px;margin-top:12px}
+.evidenceShade{position:absolute;inset:0;z-index:65;background:rgba(9,29,55,.78);display:flex;align-items:center;justify-content:center;padding:12px}.evidenceDialog{background:white;border-radius:20px;padding:18px;max-height:96%;overflow:auto;width:100%;box-shadow:0 20px 55px #07172d65}.evidenceDialog h3{font-size:20px;margin-bottom:8px}.evidenceDialog .sub{font-size:14px}.evidenceDialog .btn{width:100%;margin-top:9px}.evidenceDialog .input{min-height:50px}.evidencePreview{width:100%;max-height:180px;object-fit:contain;border-radius:12px;border:1px solid #d1ddec;margin-top:10px}.captureNote{font-size:12px;color:#7b5b22;background:#fff7e5;padding:10px 12px;border-radius:12px;margin-top:12px}.evidenceMini{width:100%;max-height:150px;object-fit:contain;border-radius:10px;border:1px solid #dbe4ef;margin-top:8px}
+/* V16 camera and burned-in timestamp evidence */
+.evidenceDialog{max-height:96%;padding:17px;border-radius:22px}.evidenceDialog h3{font-size:21px;line-height:1.3}
+.liveCamera{position:relative;width:100%;height:258px;background:#081c34;border-radius:16px;overflow:hidden;display:flex;align-items:center;justify-content:center;margin:13px 0}
+.liveCamera video{width:100%;height:100%;object-fit:cover;display:block}.liveCamera .cameraGuide{pointer-events:none;position:absolute;inset:12px;border:1px solid #ffffff77;border-radius:12px}
+.camCorners{position:absolute;inset:17px;border:2px solid #ffffff33;border-radius:11px;pointer-events:none}
+.liveCamera .cameraStandby{position:absolute;text-align:center;color:white;font-size:15px;line-height:1.6;padding:20px;z-index:1}
+.liveCamera .cameraStandby .icon{width:50px;height:50px;margin:0 auto 12px}.liveCamera .cameraStandby svg{width:44px;height:44px}
+.cameraStatus{font-weight:750;padding:10px 12px;background:#edf4ff;color:#163a6f;font-size:13px;border-radius:12px}
+.evidencePhoto{width:100%;display:block;border-radius:14px;border:1px solid #c7d6e9;margin:13px 0;max-height:310px;object-fit:contain;background:#152840}
+.evidenceDialog .evidenceMain{background:#194788;color:white;font-weight:850;min-height:56px}
+.evidenceDialog .evidenceConfirm{background:#117954;color:white;font-weight:850;min-height:56px}
+.evidenceDialog .evidenceSecondary{background:#e3edfc;color:#12376e;border:1px solid #b6c9e7;min-height:50px}
+.evidenceDialog .evidenceHint{font-size:12px;line-height:1.6;color:#50647d;margin-top:10px}
+.evidenceDialog .evidenceMock{background:#fff3db;color:#795214;font-size:12px;border-radius:10px;padding:10px;margin-top:8px}
+
+/* V18 mobile summary readability */
+.jobSummaryCard{background:#fff!important;border:1px solid #d5e2f0!important;box-shadow:0 4px 16px rgba(8,35,76,.07)!important;padding:0!important;overflow:hidden}
+.jobSummaryTop{background:#174781;color:#fff;padding:17px 20px 15px}
+.jobSummaryEyebrow{display:block;font-size:15px;font-weight:750;color:#eef5ff;line-height:1.4;margin-bottom:7px}
+.jobSummaryTitle{font-size:27px;line-height:1.22;font-weight:850;color:#fff;margin-bottom:8px}
+.jobSummaryIdentifier{font-size:13px;color:#e8f1ff;font-weight:700;letter-spacing:.02em}
+.jobSummaryBody{padding:4px 20px 8px;background:#fff}
+.jobSummaryInfo{display:grid;grid-template-columns:110px minmax(0,1fr);align-items:start;gap:10px;padding:13px 0;border-bottom:1px solid #e2eaf3}
+.jobSummaryInfo:last-child{border-bottom:0}
+.jobSummaryInfo span{color:#4b6077;font-size:15px;font-weight:700;line-height:1.5}
+.jobSummaryInfo b{font-size:17px;font-weight:850;color:#142d4d;text-align:right;line-height:1.5;overflow-wrap:anywhere}
+.receivedWeightCard{border:1px solid #c6d8ef;background:#edf4ff;border-radius:16px;padding:16px;margin:14px 0}
+.receivedWeightLabel{color:#254d7d;font-size:15px;font-weight:750;line-height:1.4}
+.receivedWeightNumber{font-size:30px;color:#103970;font-weight:900;margin:8px 0}
+.receivedWeightNumber small{font-size:17px}
+@media(max-width:420px){.jobSummaryTitle{font-size:25px}.jobSummaryInfo{grid-template-columns:95px minmax(0,1fr);gap:7px}.jobSummaryInfo span{font-size:14px}.jobSummaryInfo b{font-size:16px}}
+.phaseFoundation{margin-top:12px;background:#eff5ff;border:1px solid #c9dcf6;border-radius:15px;padding:14px}.phaseFoundation h3{color:#143d78;font-size:16px;margin:0 0 10px}.phaseFoundation .row{padding:8px 0}.phaseFoundation .sub{margin-top:10px;line-height:1.65}
+
+/* Driver-first information hierarchy / receiver shipment tracking */
+.simpleTrackingHead{display:flex;align-items:center;gap:10px;margin-bottom:12px}.simpleTrackingHead>div:nth-child(2){flex:1}.simpleTrackingIcon{width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:#e9f0fd;color:#174784;flex-shrink:0}.simpleTrackingHead .badge{font-size:12px}.driverSignal{padding:14px 15px;border-radius:13px;line-height:1.55}.driverSignal b{display:block;font-size:17px}.driverSignal div{font-size:14px;margin-top:2px}.driverSignal.normal{background:#e7f6ee;color:#115d40}.driverSignal.issue{background:#fff1d9;color:#815309}.quietDetails{margin-top:13px;border-top:1px solid #e3eaf4;padding-top:13px}.quietDetails>summary{cursor:pointer;font-weight:800;font-size:15px;color:#23497f;list-style-position:inside;padding:4px 0}.statusMini{margin:10px 0}.statusMini .row{font-size:14px}.demoActionGrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}.mobilecontent .demoActionGrid .btn{font-size:13px;min-height:44px;padding:9px 7px}.receiverStatusText{font-size:21px;color:#142f58;font-weight:850;line-height:1.4;margin:7px 0}.trackingTitle{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:4px 0 14px}.trackingTitle h2{margin:0}.deliverySteps{display:grid;gap:0;margin-top:10px}.deliveryStep{display:grid;grid-template-columns:31px 1fr auto;gap:9px;align-items:center;padding:13px 0;border-bottom:1px solid #e6edf5;font-size:14px}.deliveryStep:last-child{border-bottom:0}.deliveryStepMark{width:29px;height:29px;border-radius:50%;background:#edf1f7;color:#5c7290;display:grid;place-items:center;font-weight:800}.deliveryStep.done .deliveryStepMark{background:#d8f3e5;color:#0d6c4c}.deliveryStep.current .deliveryStepMark{background:#f6c542;color:#17386d}.deliveryStepStatus{font-size:12px;color:#687a92}.receiverETA{padding:13px 0 0;margin-top:12px;border-top:1px solid #e3ebf7;display:flex;flex-direction:column;gap:4px}.receiverETA span{font-size:14px;color:#61728c}.receiverETA b{font-size:22px;color:#183e75}.receiverMapCard{display:grid;gap:14px}.routeLegend{display:flex;gap:8px;flex-wrap:wrap}.routeLegend .chip{font-size:12px;padding:7px 10px}.receiverMapWrap{position:relative;height:250px;border-radius:16px;border:1px solid #d7e2f0;background:linear-gradient(180deg,#eef4fb 0%,#f7fbff 100%);overflow:hidden}.receiverMapCanvas{width:100%;height:100%;display:block}.receiverMapOverlay{position:absolute;left:14px;top:14px;background:#fff;border:1px solid #dbe5f1;border-radius:10px;padding:8px 11px;font-size:12px;font-weight:800;color:#21406f;box-shadow:0 6px 18px rgba(16,40,95,.08)}.receiverMapInfo{display:grid;grid-template-columns:1fr 1fr;gap:10px}.receiverMapInfo .miniCard{background:#f8fbff;border:1px solid #dde7f4;border-radius:12px;padding:12px}.receiverMapInfo .miniCard b{display:block;font-size:18px;color:#15305d;margin-bottom:4px}.receiverMapInfo .miniCard span{font-size:12px;color:#69809d}.receiverMapNote{font-size:12px;color:#667b96;line-height:1.7}.mapRoad{stroke:#dfe7ef;stroke-width:8;fill:none;stroke-linecap:round}.mapRoute{stroke:#3ea482;stroke-width:7;fill:none;stroke-linecap:round;stroke-dasharray:10 9}.mapStop{fill:#ffffff;stroke:#2e5e9d;stroke-width:3}.mapStop.done{fill:#dff5ea;stroke:#1f8f69}.mapStop.dest{stroke:#1d4c88}.mapStopLabel{font-size:11px;fill:#47627f;font-weight:700}.mapTruckBubble{filter:drop-shadow(0 6px 12px rgba(20,47,88,.18))}.mapTruckBody{fill:#123f7c}.mapTruckCab{fill:#f3c846}.mapPulse{fill:rgba(46,154,116,.18)}.mapCurrentLabel{font-size:12px;fill:#0f325b;font-weight:800}
+
+
+/* Receiver map: clear labels and move truck-state into a separate overlay */
+.receiverMapWrap{height:280px}
+.mapStatusPill{position:absolute;right:12px;bottom:12px;max-width:56%;background:#fff;border:1px solid #dbe5f1;border-radius:12px;padding:10px 12px;box-shadow:0 8px 20px rgba(16,40,95,.10);font-size:12px;font-weight:800;color:#12335d;line-height:1.45}
+.mapStatusPill small{display:block;margin-top:4px;font-size:11px;font-weight:600;color:#69809d}
+
+/* Receiver map: status badge always fits without Thai-word wrapping */
+.receiverMapCard > .row{display:grid;grid-template-columns:minmax(0,1fr);align-items:start;justify-items:start;gap:9px}
+.receiverMapCard > .row > h3{width:100%;line-height:1.35}
+.receiverMapCard > .row > .badge{display:inline-flex;white-space:nowrap;flex-shrink:0;width:max-content;max-width:100%;font-size:11px;padding:7px 11px;line-height:1.3}
+
+/* V36 — completed receiver handover. Scoped to mobile view only. */
+.receiverComplete{display:grid;gap:15px;padding-top:10px}
+.receiverCompleteHero{text-align:center;padding:20px 14px 15px;background:#f3fbf7;border:1px solid #b9e6d1;border-radius:16px}
+.receiverCompleteIcon{width:66px;height:66px;display:grid;place-items:center;background:#d6f3e5;color:#087352;border-radius:50%;margin:0 auto 12px}
+.receiverCompleteIcon svg{width:34px;height:34px}
+.receiverCompleteHero h2{color:#0c684d;font-size:25px;margin:0 0 8px;line-height:1.3}
+.receiverCompleteHero .sub{color:#456b60;line-height:1.65}
+.receiverComplete .receiverSummaryCard{padding:16px}
+.receiverComplete .receiverSummaryCard h3{margin:0 0 10px}
+.receiverComplete .receiverSummaryCard .row{align-items:flex-start;gap:12px}
+.receiverComplete .receiverSummaryCard .row span{flex:0 0 40%;min-width:0}
+.receiverComplete .receiverSummaryCard .row strong{flex:1;min-width:0;overflow-wrap:anywhere}
+.receiverComplete .finishAction{width:100%;min-height:54px;font-size:16px;font-weight:800}
+.receiverComplete .receiverWaitingNote{background:#f4f7fd;border:1px solid #d7e4f6;padding:13px;border-radius:12px;color:#314e72;line-height:1.7;font-size:14px}
+</style></head><body>
+<div class="mode" hidden style="display:none!important"><button id="modeBoth"></button><button id="modeStaff"></button><button id="modeMobile"></button></div>
+<div class="layout" id="layout"><section class="portal hide" id="staffPanel" hidden></section><section class="phonecol" id="phonePanel"><div class="phone"><div class="phonescreen"><header class="phonehead"><div class="island"></div><b>ϟ EGAT Logistics</b><div style="font-size:11px;color:#d6e4fd;margin-top:4px"><span id="phoneRoleSubtitle">Mobile Application</span></div><button type="button" class="backRole" id="backRole" onclick="exitStandaloneRole()" aria-label="กลับไปเลือกบทบาท">เปลี่ยนบทบาท</button></header><div class="mobilecontent" id="mobileRoot"></div><div class="mobilebottom" id="mobileTabs"><button onclick="mobileTab('home')"><span class="icon"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M3 10.5 12 3l9 7.5'/><path d='M5 9.8V21h14V9.8'/></svg></span><span>หน้าหลัก</span></button><button onclick="mobileTab('job')"><span class="icon"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><rect x='4' y='4' width='16' height='16' rx='2'/><path d='M8 8h8M8 12h8M8 16h5'/></svg></span><span>รายละเอียดงาน</span></button><button onclick="mobileTab('account')"><span class="icon"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><circle cx='12' cy='8' r='4'/><path d='M4 20c1.8-3.5 5-5 8-5s6.2 1.5 8 5'/></svg></span><span>บัญชี</span></button></div><div id="phoneAuthRoot"></div></div></div><details id="simulateDetails" class="simulateDetails"><summary>เครื่องมือจำลองขั้นตอนอื่น <span>สำหรับทดลองเล่นคนเดียว</span></summary><div class="simDock" id="standaloneTools"></div><p class="simHelp">ใช้แทนการทำงานของ EGAT / อีกบทบาท เพื่อทดลอง Flow โดยไม่ต้องเชื่อมเครื่องอื่น</p></details></section></div>
+<script>
+'use strict';
+const STORAGE='egat_v36_public_standalone_driver_v1';
+const initial=()=>({staffView:'dashboard',mobileView:'login',mobileRole:null,mobileTab:'home',logged:false,authStep:0,driverVerified:false,driverConfirm:false,driverAuthKey:null,receiverQty:null,receiverRegistered:false,receiverFullName:'',receiverEmployeeCode:'',receiverId:null,receiverAuthorizedJob:null,receiverBusiness:'คลังรับสินค้า จ.พะเยา',receiverIdentityChecked:false,driverExplanation:'',stoppedMinutes:0,lastGPSAt:null,gpsAccuracy:18,receiverNoticeSeen:false,offlineQueue:[],trackingEvents:[],trackingGapStartedAt:null,trackingGapMinutes:0,job:{id:'JOB-MM-DEMO-024',queue:'Q-024',plate:'70-1234 ลำปาง',vehicleId:'VEH-0001',driver:'สมชาย ใจดี',driverId:'DRV-0001',orderId:'ORDER-DEMO-024',customerId:"1",customerCode:"01-001000",customerName:"บริษัท ปูนซิเมนต์ไทย(ลำปาง) จำกัด [Fly Ash]",transportCompany:'ผู้ขนส่งตัวอย่าง',customer:"บริษัท ปูนซิเมนต์ไทย(ลำปาง) จำกัด [Fly Ash]",assignedReceiverId:'RCV-0001',material:'เถ้าลอย (Fly Ash)',destination:'คลังรับสินค้า จ.พะเยา',net:25.2,ticketNet:null,queueCalled:false,gate:false,loaded:false,weighted:false,qrIssued:false,dispatchAccepted:false,trackingStarted:false,checkpointIn:false,checkpointOut:false,checkpointInZone:false,checkpointOutZone:false,near:false,qrUnlocked:false,arrived:false,receiverScanned:false,weightPhoto:false,emptyTruckPhoto:false,submitted:false,receiverVerified:false,approved:false,reviewRequired:false,reviewReason:"",reviewRound:0,evidenceRound:0,reviewNoticeSeen:0,evidenceRecords:[],deliveryQRVerifiedAt:null,deliveryReceiverId:null,receiverConfirmedAt:null,routeDeviation:false,gps:true,internet:true,dispatchAt:null,addHours:0},events:[{time:new Date().toLocaleTimeString('th-TH'),msg:'เปิดระบบพร้อม Job ตัวอย่าง'}]});
+let s;try{s=Object.assign(initial(),JSON.parse(localStorage.getItem(STORAGE)||'{}'))}catch{s=initial()}
+s.job={...initial().job,...(s.job||{})};
+for(const [k,v] of Object.entries({receiverRegistered:false,receiverFullName:'',receiverEmployeeCode:'',receiverId:null,receiverAuthorizedJob:null,receiverBusiness:'คลังรับสินค้า จ.พะเยา',receiverIdentityChecked:false,driverExplanation:'',stoppedMinutes:0,lastGPSAt:null,gpsAccuracy:18}))if(s[k]===undefined)s[k]=v;
+// Phase 1–2: single reference job and explicit authorization rules for the offline demo.
+const DEMO_RECEIVERS=Object.freeze([
+ {id:'RCV-0001',name:'สมใจ รับสินค้า',company:'คลังรับสินค้า จ.พะเยา',jobId:'JOB-MM-DEMO-024',active:true},
+ {id:'RCV-0002',name:'ผู้รับต่างโรงงาน',company:'คลังรับสินค้า จ.ลำปาง',jobId:'JOB-MM-DEMO-025',active:true}
+]);
+const DEMO_DRIVER_REGISTRY=Object.freeze([
+ {id:'DRV-0001',name:'สมชาย ใจดี'},
+ {id:'DRV-0002',name:'สมศักดิ์ ขนส่ง'}
+]);
+const demoJobStatus=j=>j.approved?'COMPLETED':j.reviewRequired?'REVIEW_REQUIRED':j.receiverVerified?'RECEIVER_VERIFIED':j.submitted?'POD_SUBMITTED':j.arrived?'ARRIVED':j.trackingStarted?'IN_TRANSIT':j.dispatchAccepted?'DRIVER_ACCEPTED':j.qrIssued?'READY_FOR_DISPATCH':j.weighted?'WEIGHED':j.loaded?'LOADED':j.gate?'GATE_VERIFIED':j.queueCalled?'QUEUE_CALLED':'REGISTERED';
+function demoDriverAssignmentAllowed(){return DEMO_DRIVER_REGISTRY.some(r=>r.id===(s.job.driverId||'DRV-0001')&&r.name===s.job.driver);}
+function demoDriverAuthKey(j){return [j.id,j.driverId||'DRV-0001',j.driver,j.vehicleId||'VEH-0001',j.plate].join('|');}
+function demoReceiverAllowed(){const j=s.job;return DEMO_RECEIVERS.some(r=>r.active&&r.id===s.receiverId&&r.jobId===j.id&&r.company===j.destination&&r.id===(j.assignedReceiverId||'RCV-0001')&&r.name===s.receiverFullName&&s.receiverAuthorizedJob===j.id&&s.receiverIdentityChecked);}
+function clearDriverAuth(reason){s.driverVerified=false;s.driverAuthKey=null;s.authStep=0;if(s.mobileRole==='driver'){s.logged=false;s.mobileView='credentials';s.mobileTab='home';}if(reason) s.events.unshift({time:new Date().toLocaleString('th-TH'),msg:reason});}
+function phaseInfo(){const j=s.job;return `<div class="phaseFoundation"><h3>ข้อมูลอ้างอิงของเที่ยวงาน · Phase 1–2</h3>${row('Job ID',esc(j.id))}${row('Status Code',demoJobStatus(j))}${row('Driver ID',esc(j.driverId||'DRV-0001'))}${row('Vehicle ID',esc(j.vehicleId||'VEH-0001'))}${row('Receiver ID',esc(j.assignedReceiverId||'RCV-0001'))}${row('ผู้มีสิทธิ์รับ',esc(DEMO_RECEIVERS.find(r=>r.id===(j.assignedReceiverId||'RCV-0001'))?.name||'ไม่พบ'))}<div class="sub">EGAT เปลี่ยนสถานะต้นทาง · Driver รับงาน/ขนส่ง/ส่งหลักฐาน · Receiver ตรวจรับ · EGAT อนุมัติปิดงาน (สิทธิ์จำลอง)</div></div>`}
+let receiverFormError='';let receiverLookup=null;for(const [k,v] of Object.entries({offlineQueue:[],trackingEvents:[],trackingGapStartedAt:null,trackingGapMinutes:0}))if(s[k]===undefined)s[k]=v;
+if(!Array.isArray(s.job.evidenceRecords))s.job.evidenceRecords=[];
+let authPopup=null;let captureMode=null;let modeValue='both';const $=id=>document.getElementById(id);const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const icon=n=>({truck:`<span class="icon"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M1 6h13v10H1z'/><path d='M14 9h4l3 3v4h-7z'/><circle cx='6' cy='18' r='2'/><circle cx='18' cy='18' r='2'/></svg></span>`,box:`<span class="icon"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M3 7 12 3l9 4-9 4-9-4Z'/><path d='M3 7v10l9 4 9-4V7'/><path d='M12 11v10'/></svg></span>`,shield:`<span class="icon"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M12 3 5 6v6c0 5 3.4 8 7 9 3.6-1 7-4 7-9V6l-7-3Z'/></svg></span>`,id:`<span class="icon"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><rect x='3' y='5' width='18' height='14' rx='2'/><circle cx='8' cy='12' r='2.5'/><path d='M13 10h5M13 14h4'/></svg></span>`,face:`<span class="icon"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M9 3H7a4 4 0 0 0-4 4v2M15 3h2a4 4 0 0 1 4 4v2M9 21H7a4 4 0 0 1-4-4v-2M15 21h2a4 4 0 0 0 4-4v-2'/><circle cx='12' cy='10' r='2'/><path d='M9 16c1 .9 2 1.4 3 1.4s2-.5 3-1.4'/></svg></span>`,qr:`<span class="icon"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3z'/><path d='M14 14h3v3h-3zM18 14h3v7h-7v-3'/></svg></span>`,camera:`<span class="icon"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M4 7h4l2-2h4l2 2h4v12H4z'/><circle cx='12' cy='13' r='3'/></svg></span>`,send:`<span class="icon"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='m22 2-7 20-4-9-9-4Z'/><path d='M22 2 11 13'/></svg></span>`,pin:`<span class="icon"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M12 21s-6-5.3-6-11a6 6 0 1 1 12 0c0 5.7-6 11-6 11Z'/><circle cx='12' cy='10' r='2.5'/></svg></span>`,check:`<span class="icon"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='m5 12 4 4 10-10'/></svg></span>`,route:`<span class="icon"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><circle cx='6' cy='18' r='2'/><circle cx='18' cy='6' r='2'/><path d='M8 18h3a5 5 0 0 0 5-5V8'/></svg></span>`,clock:`<span class="icon"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><circle cx='12' cy='12' r='9'/><path d='M12 7v6l4 2'/></svg></span>`,swap:`<span class="icon"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M7 7h11l-3-3M17 17H6l3 3'/><path d='M18 7H7M6 17h11'/></svg></span>`}[n]||'');
+const row=(a,b)=>`<div class="row"><span>${a}</span><strong>${b}</strong></div>`;
+const btn=(label,act,cls='',disabled=false)=>`<button class="btn ${cls}" onclick="doAction('${act}')" ${disabled?'disabled':''}>${label}</button>`;
+const card=(html,cls='')=>`<div class="card ${cls}">${html}</div>`;
+const note=(html,cls='')=>`<div class="notice ${cls}">${html}</div>`;
+function save(msg){if(msg)s.events.unshift({time:new Date().toLocaleString('th-TH'),msg});try{localStorage.setItem(STORAGE,JSON.stringify(s))}catch{}render()}
+function phase(){const j=s.job;if(j.approved)return 5;if(j.receiverScanned||j.arrived)return 4;if(j.trackingStarted)return 3;if(j.qrIssued||j.weighted||j.loaded)return 2;return 1}
+function status(){const j=s.job;return j.approved?'อนุมัติปิดงานแล้ว':j.reviewRequired?'EGAT ขอหลักฐานใหม่':j.receiverVerified?'ผู้รับยืนยันแล้ว':j.submitted?'รอ EGAT ตรวจสอบ':j.arrived?'ถึงปลายทางแล้ว':j.trackingStarted?'กำลังขนส่ง':j.qrIssued?'พร้อมรับงาน':j.weighted?'ชั่งน้ำหนักแล้ว':j.loaded?'รับสินค้าแล้ว':j.gate?'ผ่านประตู':j.queueCalled?'เรียกคิวแล้ว':'รอเรียกคิว'}
+function deadline(){const j=s.job;if(!j.dispatchAt)return 'เริ่มนับหลังออกเดินทาง';const ms=72*3600000-(Date.now()-new Date(j.dispatchAt).getTime())-(j.addHours||0)*3600000;if(j.receiverVerified)return 'ส่งมอบแล้ว';if(ms<=0)return 'เกินกำหนดส่ง';const hrs=Math.floor(ms/3600000);return `${Math.floor(hrs/24)} วัน ${hrs%24} ชม. คงเหลือ`}
+function riskDetails(){
+ const j=s.job;const age=s.lastGPSAt?Math.max(0,Math.floor((Date.now()-Date.parse(s.lastGPSAt))/60000)):null;
+ if(j.gps===false||j.internet===false||(j.trackingStarted&&age!==null&&age>=15))return {level:'ผิดปกติ',className:'red',text:'ข้อมูลตำแหน่งขาดหาย ต้องตรวจสอบ',age};
+ if(j.routeDeviation||Number(s.stoppedMinutes||0)>=30||j.incidentOpen)return {level:'เฝ้าระวัง',className:'warn',text:j.incidentOpen?'มีเหตุการณ์รอตรวจสอบจาก EGAT':j.routeDeviation?'ออกนอกเส้นทางอ้างอิง':'รถหยุดนานเกินเกณฑ์',age};
+ if(!j.trackingStarted||j.receiverVerified)return {level:'ปกติ',className:'green',text:'ไม่มีเหตุผิดปกติคงค้าง',age};
+ return {level:'ปกติ',className:'green',text:'ตำแหน่งและสถานะล่าสุดยังปกติ (ข้อมูลจำลอง)',age};
+}
+function mobileRiskPanel(){
+ const j=s.job;if(!j.trackingStarted)return '';
+ const r=riskDetails();
+ const hasIssue=r.level!=='ปกติ';
+ const headline=j.gps===false?'GPS ไม่มีสัญญาณ':j.internet===false?'การเชื่อมต่อขาดหาย':j.incidentOpen?'มีเหตุการณ์รอ EGAT ตรวจสอบ':j.routeDeviation?'ต้องตรวจสอบเส้นทาง':'ติดตามการเดินทางตามปกติ';
+ const subtitle=j.incidentOpen?'EGAT ได้รับบันทึกเหตุการณ์แล้ว · แจ้งเมื่อจอดรถปลอดภัย':j.internet===false?'ข้อมูลบางส่วนจะรอซิงก์เมื่อเชื่อมต่อได้':'ระบบติดตามข้อมูลจำลองให้โดยอัตโนมัติ';
+ return card(`<div class="simpleTrackingHead"><div class="simpleTrackingIcon">${icon('pin')}</div><div><h3 style="margin:0">สถานะการเดินทาง</h3><div class="sub">ดูสถานะได้โดยไม่ต้องกดระหว่างขับรถ</div></div><span class="badge ${r.className}">${r.level}</span></div>
+ <div class="driverSignal ${hasIssue?'issue':'normal'}"><b>${esc(headline)}</b><div>${esc(subtitle)}</div></div>
+ ${j.reviewRequired?'<div class="notice red">EGAT ขอหลักฐานใหม่ กรุณาดำเนินการเมื่อหยุดรถปลอดภัย</div>':''}
+ <details class="quietDetails"><summary>รายละเอียด GPS และเครื่องมือสาธิต</summary>
+ <div class="statusMini">${row('GPS',j.gps?'พร้อมใช้งาน':'สัญญาณหาย')}${row('อินเทอร์เน็ต',j.internet?'Online':'Offline')}${row('พิกัดล่าสุด',s.lastGPSAt?new Date(s.lastGPSAt).toLocaleString('th-TH',{dateStyle:'short',timeStyle:'short'}):'ยังไม่มี')}${row('ความแม่นยำ',j.gps?s.gpsAccuracy+' เมตร':'ไม่พร้อม')}${row('ข้อมูลรอซิงก์',(s.offlineQueue||[]).length+' รายการ')}${row('การหยุดรถ',s.stoppedMinutes+' นาที')}</div>
+ ${s.driverExplanation?'<div class="notice">'+esc(s.driverExplanation)+'</div>':''}
+ <details class="quietDetails"><summary>ประวัติติดตามล่าสุด</summary>${(s.trackingEvents||[]).slice(0,4).map(x=>`<div class="row"><span>${esc(x.title)}</span><strong>${esc(x.time)}</strong></div>`).join('')||'<div class="sub">ยังไม่มีเหตุการณ์</div>'}</details>
+ <div class="sub" style="margin:12px 0 6px">การจำลองเหตุการณ์สำหรับผู้ทดสอบ (ห้ามใช้งานขณะขับรถ)</div>
+ <div class="demoActionGrid">${btn('GPS หาย','gps','secondary')}${btn(j.internet?'อินเทอร์เน็ตออฟไลน์':'คืนสัญญาณและซิงก์','toggleOffline','secondary')}${btn('ข้อมูลขาด 15 นาที','simulateGap','secondary')}${btn('ส่ง GPS Ping','gpsHeartbeat','secondary')}${btn('รถหยุด 35 นาที','longStop','secondary')}${btn('แจ้งรถเสีย','explainBreakdown','secondary')}${btn('แจ้งหยุดพัก','explainRest','secondary')}${btn('กลับสู่สถานะปกติ','clearRisk','light')}${btn('จำลองออกนอกเส้นทาง','route','secondary')}${btn('ผ่านไป 24 ชั่วโมง','time','secondary')}</div>
+ <div class="sub" style="margin-top:10px">ข้อมูล GPS และการแจ้งเหตุทั้งหมดเป็นการจำลอง โดย EGAT ต้องเป็นผู้ปิดเหตุคงค้าง</div>
+ </details>`);
+}
+function phase3TrackingPanel(){return '';}
+
+function recordTracking(title){
+ const time=new Date().toLocaleString('th-TH',{dateStyle:'short',timeStyle:'short'});
+ if(!Array.isArray(s.trackingEvents))s.trackingEvents=[];
+ s.trackingEvents.unshift({title,time,at:new Date().toISOString()});s.trackingEvents=s.trackingEvents.slice(0,30);
+ if(s.job.internet===false){if(!Array.isArray(s.offlineQueue))s.offlineQueue=[];s.offlineQueue.push({title,time});}
+}
+function receiverStatusPanel(){
+ const j=s.job;
+ const risk=riskDetails();
+ return card(`<div class="simpleTrackingHead"><div class="simpleTrackingIcon">${icon('truck')}</div><div><h3 style="margin:0">ติดตามสินค้าของคุณ</h3><div class="sub">${esc(j.plate)} · ${esc(j.material)}</div><div class="sub">ลูกค้า: ${esc(j.customerName||'ยังไม่ผูกข้อมูลลูกค้า')}</div></div></div>
+ <div class="receiverStatusText">${esc(receiverStage().title)}</div><div class="sub">${esc(receiverStage().hint)}</div>
+ ${risk.level!=='ปกติ'&&j.trackingStarted?'<div class="notice warn">มีเหตุที่อาจกระทบเวลาจัดส่ง กรุณาติดตามประกาศจาก EGAT</div>':''}
+ ${btn(icon('pin')+'<span>ดูการติดตามสินค้า</span>','openReceiverTracking','yellow')}`);
+}
+function receiverStage(){
+ const j=s.job;
+ if(j.approved)return {title:'ส่งมอบและอนุมัติเรียบร้อย',hint:'ตรวจรับงานเสร็จสิ้นแล้ว',index:5};
+ if(j.receiverVerified)return {title:'ผู้รับยืนยันสินค้าแล้ว',hint:'อยู่ระหว่าง EGAT ตรวจสอบและอนุมัติ',index:4};
+ if(j.arrived)return {title:'รถถึงปลายทางแล้ว',hint:'เตรียมสแกน QR และตรวจรับสินค้า',index:3};
+ if(j.near)return {title:'รถกำลังใกล้ถึงปลายทาง',hint:'ภายในระยะประมาณ 1 กิโลเมตร (จำลอง)',index:2};
+ if(j.trackingStarted)return {title:'รถอยู่ระหว่างขนส่ง',hint:'ระบบกำลังติดตามการเดินทางจากแม่เมาะ',index:1};
+ if(j.qrIssued)return {title:'เตรียมออกจากต้นทาง',hint:'ยังไม่มีข้อมูลเริ่มขนส่งจากคนขับ',index:0};
+ return {title:'กำลังเตรียมสินค้า',hint:'รอเจ้าหน้าที่ EGAT ดำเนินงานต้นทาง',index:0};
+}
+function receiverRoutePoint(){
+ const j=s.job;
+ if(j.arrived)return {x:252,y:62,label:'ถึงจุดส่งสินค้า',sub:'รถอยู่ในรัศมี Geofence ปลายทาง 500 ม. (จำลอง)',step:4};
+ if(j.near)return {x:226,y:87,label:'ใกล้จุดส่งสินค้า',sub:'อยู่ในระยะประมาณ 1 กิโลเมตรจากปลายทาง',step:3};
+ if(j.checkpointOut)return {x:182,y:118,label:'ผ่าน Checkpoint Out',sub:'ออกจากด่านชั่งแล้ว กำลังมุ่งหน้าสู่ปลายทาง',step:2};
+ if(j.checkpointIn)return {x:132,y:150,label:'ผ่าน Checkpoint In',sub:'ผ่านด่านชั่งแรกและอยู่ระหว่างเส้นทาง',step:1};
+ if(j.trackingStarted)return {x:86,y:176,label:'ออกจากแม่เมาะแล้ว',sub:'ระบบได้รับการเริ่มติดตามจากคนขับ',step:1};
+ return {x:48,y:194,label:'ต้นทางแม่เมาะ',sub:'ยังไม่มีการเริ่มติดตามการเดินทาง',step:0};
+}
+function receiverMapCard(){
+ const j=s.job,p=receiverRoutePoint();
+ const last=s.lastGPSAt?new Date(s.lastGPSAt).toLocaleString('th-TH',{dateStyle:'short',timeStyle:'short'}):'ยังไม่ได้รับข้อมูล';
+ const reliable=j.gps&&j.internet;
+ return card(`<div class="receiverMapCard"><div class="row"><h3 style="margin:0">แผนที่ติดตามสินค้า</h3><span class="badge ${reliable?'green':'warn'}">${reliable?'ข้อมูลล่าสุดพร้อมใช้งาน':'ข้อมูลอาจไม่ต่อเนื่อง'}</span></div><div class="routeLegend"><span class="chip">ต้นทางแม่เมาะ</span><span class="chip">Checkpoint In / Out</span><span class="chip">ปลายทาง ${esc(j.destination)}</span></div><div class="receiverMapWrap"><div class="receiverMapOverlay">เส้นทางการขนส่ง (จำลอง)</div><svg class="receiverMapCanvas" viewBox="0 0 300 220" aria-label="Receiver tracking map"><path class="mapRoad" d="M10 186 C54 178,76 174,109 159 C130 150,150 139,175 120 C198 101,226 82,292 40"/><path class="mapRoad" d="M26 44 L118 102"/><path class="mapRoad" d="M154 16 L196 102"/><path class="mapRoad" d="M224 150 L282 190"/><path class="mapRoute" d="M38 192 C54 186,76 178,109 159 C130 150,150 139,175 120 C198 101,226 82,252 62"/><circle class="mapStop done" cx="38" cy="192" r="8"/><text class="mapStopLabel" x="18" y="212">แม่เมาะ</text><circle class="mapStop ${j.checkpointIn?'done':''}" cx="130" cy="150" r="8"/><text class="mapStopLabel" x="96" y="186">Checkpoint In</text><circle class="mapStop ${j.checkpointOut?'done':''}" cx="180" cy="118" r="8"/><text class="mapStopLabel" x="166" y="151">Checkpoint Out</text><circle class="mapStop dest ${j.arrived?'done':''}" cx="252" cy="62" r="8"/><text class="mapStopLabel" x="212" y="30">ปลายทางส่งสินค้า</text><circle class="mapPulse" cx="${p.x}" cy="${p.y}" r="16"/><g class="mapTruckBubble" transform="translate(${p.x-14} ${p.y-13})"><rect class="mapTruckBody" x="0" y="8" width="18" height="9" rx="2"/><path class="mapTruckCab" d="M18 10 h8 l4 4 v3 h-12 z"/><circle fill="#fff" cx="7" cy="19" r="2.5"/><circle fill="#fff" cx="23" cy="19" r="2.5"/></g></svg><div class="mapStatusPill">${p.label}<small>${p.sub}</small></div></div><div class="receiverMapInfo"><div class="miniCard"><b>ตำแหน่งล่าสุด</b><span>${p.label}</span></div><div class="miniCard"><b>${last}</b><span>เวลารับข้อมูลล่าสุดจากระบบสาธิต</span></div></div><div class="receiverMapNote">สำหรับสาธิต UX/UI หน้านี้แสดงแผนที่จำลองเพื่อช่วยให้ผู้รับเข้าใจว่ารถอยู่ช่วงใดของการเดินทาง โดยยังไม่ใช้พิกัด GPS จริงหรือ ETA จากสภาพจราจร</div></div>`);
+}
+function receiverTracking(){
+ const j=s.job, stage=receiverStage(),risk=riskDetails();
+ const steps=[['เตรียมสินค้า',j.weighted],['ออกจากแม่เมาะ',j.trackingStarted],['ผ่านจุดตรวจ In / Out',j.checkpointIn&&j.checkpointOut],['ถึงจุดส่งสินค้า',j.arrived],['ตรวจรับสำเร็จ',j.receiverVerified]];
+ const last=s.lastGPSAt?new Date(s.lastGPSAt).toLocaleString('th-TH',{dateStyle:'short',timeStyle:'short'}):'ยังไม่ได้รับข้อมูล';
+ const shouldWarn=j.trackingStarted&&!j.arrived&&(j.internet===false||j.gps===false||risk.level!=='ปกติ');
+ return `<div class="receiverTrackingView"><div class="trackingTitle"><h2>ติดตามสินค้า</h2><span class="badge ${j.arrived?'green':'warn'}">${j.arrived?'ถึงปลายทางแล้ว':j.trackingStarted?'กำลังขนส่ง':'เตรียมสินค้า'}</span></div>
+ ${card(`<div class="sub">สินค้า</div><h2>${esc(j.material)}</h2>${row('หมายเลขงาน',esc(j.id))}${row('ลูกค้า / ผู้ซื้อ',esc(j.customerName||'ยังไม่ผูกข้อมูลลูกค้า'))}${row('รหัสลูกค้า',esc(j.customerCode||'—'))}${row('ทะเบียนรถ',esc(j.plate))}${row('ปลายทาง',esc(j.destination))}`)}
+ ${card(`<div class="receiverStatusText">${esc(stage.title)}</div><div class="sub">${esc(stage.hint)}</div>${j.dispatchAt?`<div class="receiverETA"><span>กรอบเวลาส่งมอบตามแผน</span><b>${deadline()}</b></div>`:'<div class="sub">แสดงกรอบเวลาส่งมอบเมื่อรถออกเดินทาง</div>'}`)}
+ ${card(`<h3>ความคืบหน้าการจัดส่ง</h3><div class="deliverySteps">${steps.map(([name,done],i)=>`<div class="deliveryStep ${done?'done':(i===stage.index?'current':'')}\"><div class="deliveryStepMark">${done?icon('check'):i+1}</div><span>${name}</span><span class="deliveryStepStatus">${done?'เสร็จแล้ว':i===stage.index?'กำลังดำเนินการ':'รอดำเนินการ'}</span></div>`).join('')}</div>`)}
+ ${receiverMapCard()}
+ ${card(`<h3>ข้อมูลติดตามล่าสุด</h3>${row('ตำแหน่งล่าสุด',j.arrived?'จุดส่งสินค้า':j.near?'ใกล้จุดส่งสินค้า':j.trackingStarted?'อยู่ระหว่างทาง (จำลอง)':'ต้นทางแม่เมาะ')}${row('ข้อมูล GPS ล่าสุด',esc(last))}${row('ความน่าเชื่อถือของตำแหน่ง',j.gps&&j.internet?'มีข้อมูลล่าสุดจากระบบจำลอง':'รอข้อมูลตำแหน่งใหม่')}${shouldWarn?'<div class="notice warn">ข้อมูลการเดินทางไม่ต่อเนื่องหรือมีเหตุที่กำลังตรวจสอบ ไม่ควรใช้ตำแหน่งนี้เป็นตำแหน่งปัจจุบันที่ยืนยันแล้ว</div>':''}<div class="sub">ระบบสาธิตไม่แสดงตำแหน่ง GPS จริงหรือเวลาถึงที่คำนวณจากการจราจร</div>`)}
+ ${card(`<h3>การส่งมอบ</h3>${row('สแกน Delivery QR',j.receiverScanned?'ยืนยันแล้ว':'รอสแกน')}${row('ใบชั่งปลายทาง',j.weightPhoto?'ได้รับหลักฐานแล้ว':'รอหลักฐาน')}${row('ผลยืนยันผู้รับ',j.receiverVerified?'ยืนยันแล้ว':'ยังไม่ยืนยัน')}${j.reviewRequired?'<div class="notice warn">EGAT ขอภาพหลักฐานเพิ่มเติมจากคนขับ</div>':''}${btn('กลับหน้าหลัก','goHome','light')}`)}
+ </div>`;
+}
+
+
+function upstream(){const j=s.job;return [['เรียกคิว',j.queueCalled],['ผ่านประตู',j.gate],['รับสินค้า',j.loaded],['ชั่งน้ำหนัก',j.weighted],['ออก QR',j.qrIssued]].map(([name,val],i)=>`<div class="step ${val?'done':''}"><div class="num">${val?'✓':i+1}</div><div><b>${name}</b><span>${val?'ยืนยันจากเว็บไซต์ EGAT แล้ว':'รอดำเนินการจากเจ้าหน้าที่ EGAT'}</span></div></div>`).join('')}
+function nextQueueActionUI(j){
+ let step={title:'เรียกคิวรถเข้ารับสินค้า',desc:'เริ่มต้นกระบวนการรับสินค้าที่แม่เมาะ และแจ้งคิวให้คนขับเห็นในแอป',label:'เรียกคิวตอนนี้',action:'call',className:'yellow'};
+ if(j.queueCalled && !j.gate) step={title:'ตรวจสอบเอกสารและทะเบียนที่ Gate',desc:'ยืนยันว่ารถและข้อมูลคนขับตรงกับรายการลงทะเบียนก่อนเข้าสู่พื้นที่รับสินค้า',label:'ตรวจ Gate',action:'gate',className:'yellow'};
+ else if(j.gate && !j.loaded) step={title:'ยืนยันโหลดสินค้าเรียบร้อย',desc:'บันทึกว่ารถได้รับสินค้าแล้วและพร้อมเข้าสู่ขั้นตอนชั่งน้ำหนัก',label:'ยืนยันรับสินค้า',action:'loaded',className:'yellow'};
+ else if(j.loaded && !j.weighted) step={title:'บันทึกผลชั่งน้ำหนัก',desc:'บันทึกน้ำหนักสุทธิของเที่ยวขนส่งนี้ก่อนออก QR รับงาน',label:'บันทึกผลชั่ง 25.20 ตัน',action:'weighted',className:'yellow'};
+ else if(j.weighted && !j.qrIssued) step={title:'ออก QR รับงานให้คนขับ',desc:'สร้าง QR สำหรับให้คนขับสแกนรับงานและเริ่มการขนส่ง',label:'ออก QR รับงาน',action:'qr',className:'green'};
+ else if(j.qrIssued) step={title:'ดำเนินการต้นทางครบแล้ว',desc:'ขณะนี้คนขับสามารถรับงานในแอปและเริ่มเดินทางได้ ขั้นตอนถัดไปอยู่ที่หน้าติดตามการขนส่ง',label:'ไปหน้าติดตามการขนส่ง',action:'to-tracking',className:'secondary'};
+ return `<div class="focusCard"><div class="focusLabel">ขั้นตอนที่ต้องทำตอนนี้</div><div class="focusTitle">${step.title}</div><div class="focusDesc">${step.desc}</div><div class="focusAction">${btn(step.label,step.action,step.className,false)}</div><div class="focusHint">ระบบแสดงเพียงปุ่มหลักของขั้นตอนถัดไปเพื่อลดความสับสน และป้องกันการกดข้ามลำดับงาน</div></div>`;
+}
+function renderStaff(){const j=s.job;let html=`<div class="actions"><button class="btn ${s.staffView==='dashboard'?'':'light'}" onclick="staffView('dashboard')">ภาพรวม</button><button class="btn ${s.staffView==='queue'?'':'light'}" onclick="staffView('queue')">คิวและสินค้า</button><button class="btn ${s.staffView==='tracking'?'':'light'}" onclick="staffView('tracking')">ติดตามรถ</button><button class="btn ${s.staffView==='review'?'':'light'}" onclick="staffView('review')">ตรวจส่งมอบ</button></div>`;
+if(s.staffView==='dashboard')html+=`<div class="grid"><div class="stat"><small>งานทั้งหมด</small><b>1</b></div><div class="stat"><small>กำลังขนส่ง</small><b>${j.trackingStarted&&!j.approved?1:0}</b></div><div class="stat"><small>รอตรวจรับ</small><b>${j.submitted&&!j.approved?1:0}</b></div></div><br>${card(`<h2>งานขนส่งที่ใช้ร่วมกัน</h2>${row('Job ID',esc(j.id))}${row('ลูกค้า / ผู้ซื้อ',esc(j.customerName||'ยังไม่ผูกข้อมูลลูกค้า'))}${row('รหัสลูกค้า',esc(j.customerCode||'—'))}${row('ทะเบียนรถ',esc(j.plate))}${row('คนขับ',esc(j.driver))}${row('สินค้า',esc(j.material))}${row('สถานะ',`<span class="badge">${status()}</span>`)}<div class="actions">${btn('ไปจัดการคิว','to-queue','yellow')}${btn('ดูงานรอตรวจ','to-review','light')}</div>`)}${card(`<h3>การอัปเดตล่าสุดจากทั้งสองระบบ</h3>${s.events.slice(0,8).map(e=>`<div class="event">${esc(e.msg)}<small>${esc(e.time)}</small></div>`).join('')}`)}`;
+if(s.staffView==='queue')html+=card(`<h2>จัดการคิวและจ่ายสินค้า</h2><div class="sub">เจ้าหน้าที่ดำเนินการทีละขั้น ระบบมือถือคนขับจะอัปเดตตามทันที</div><div class="stepCompact">${[['เรียกคิว',j.queueCalled],['ผ่าน Gate',j.gate],['โหลดสินค้า',j.loaded],['บันทึกชั่ง',j.weighted],['ออก QR',j.qrIssued]].map(([name,val],i)=>`<div class="miniStep ${val?'done':''}"><div class="k">ขั้นตอน ${i+1}</div><div class="v">${name}<br><span style="font-size:13px;font-weight:700;color:${val?'#167d55':'#7b8ca3'}">${val?'เสร็จแล้ว':'รอดำเนินการ'}</span></div></div>`).join('')}</div>${row('ทะเบียนรถ',esc(j.plate))}${row('หมายเลขคิว',esc(j.queue))}${nextQueueActionUI(j)}`);
+if(s.staffView==='tracking')html+=card(`<h2>ติดตามเที่ยวขนส่ง</h2>${row('เที่ยวขนส่ง',esc(j.id))}${row('สถานะ',status())}${row('ตำแหน่ง',j.arrived?'ถึงปลายทาง':j.near?'ใกล้ปลายทาง 1 กม.':j.trackingStarted?'ระหว่างทาง':'ยังไม่ออกจากแม่เมาะ')}${row('เวลาส่ง 3 วัน',deadline())}${row('GPS',j.gps?'พร้อม':'สัญญาณหาย')}${row('เส้นทาง',j.routeDeviation?'ต้องตรวจสอบเส้นทาง':'ไม่พบการเบี่ยงเบน')}${j.routeDeviation?note('แจ้งเตือน: รถอาจออกนอกเส้นทางที่กำหนด ควรตรวจสอบสาเหตุ','red'):''}${btn('ดูรายการเหตุการณ์','to-review','light')}`);
+if(s.staffView==='review')html+=card(`<h2>ตรวจสอบการส่งมอบ</h2>${row('QR ผู้รับ',j.receiverScanned?'สแกนแล้ว':'ยังไม่สแกน')}${row('ใบชั่งปลายทาง',j.weightPhoto?'ได้รับแล้ว':'ยังไม่มี')}${row('ภาพกระบะเปล่า',j.emptyTruckPhoto?'ได้รับแล้ว':'ยังไม่มี')}${row('e-POD',j.submitted?'ส่งแล้ว':'รอหลักฐาน')}${row('ผู้รับยืนยัน',j.receiverVerified?'รับสินค้าแล้ว':'รอยืนยัน')}${row('สถานะ EGAT',j.approved?'อนุมัติแล้ว':'รอตรวจสอบ')}<div class="actions">${btn('อนุมัติปิดงาน','approve','green',!j.receiverVerified||j.approved)}</div>${!j.receiverVerified?note('ยังอนุมัติไม่ได้ ต้องมีหลักฐานและการยืนยันจากผู้รับก่อน','warn'):''}`);
+$('staffRoot').innerHTML=html;}
+function progress(){return `<div class="progress">${[1,2,3,4,5].map(n=>`<div class="${phase()>=n?'done':''}"></div>`).join('')}</div><div class="sub">ขั้นตอน ${phase()} / 5 • ${status()}</div>`}
+function checkpointPanel(){const j=s.job;if(!j.trackingStarted||j.approved)return '';
+const inAction=j.checkpointIn?'<span class="badge green">ยืนยันแล้ว ✓</span>':j.checkpointInZone?btn('ยืนยัน Checkpoint In','checkIn','yellow'):btn('จำลองเข้าเขตด่าน In','enterCheckpointIn','light');
+const outAction=j.checkpointOut?'<span class="badge green">ยืนยันแล้ว ✓</span>':!j.checkpointIn?'<span class="badge warn">รอยืนยันด่าน In ก่อน</span>':j.checkpointOutZone?btn('ยืนยัน Checkpoint Out','checkOut','yellow'):btn('จำลองเข้าเขตด่าน Out','enterCheckpointOut','light');
+return card(`<h3>สถานะด่านตรวจน้ำหนัก</h3><div class="sub">ต้องเช็กอิน 2 จุดตามลำดับ โดยกดยืนยันได้เฉพาะเมื่ออยู่ในรัศมีด่าน (จำลอง)</div><div class="step ${j.checkpointIn?'done':''}"><div class="num">${j.checkpointIn?'✓':'1'}</div><div style="flex:1"><b>Checkpoint In</b><span>${j.checkpointIn?'บันทึกเวลาเข้าด่านแล้ว':j.checkpointInZone?'อยู่ในรัศมีด่าน พร้อมยืนยัน':'ยังไม่อยู่ในรัศมีด่าน'}</span><div class="actions">${inAction}</div></div></div><div class="step ${j.checkpointOut?'done':''}"><div class="num">${j.checkpointOut?'✓':'2'}</div><div style="flex:1"><b>Checkpoint Out</b><span>${j.checkpointOut?'บันทึกเวลาออกด่านแล้ว':j.checkpointOutZone?'อยู่ในรัศมีด่าน พร้อมยืนยัน':'รอเข้ารัศมีและยืนยันด่านแรก'}</span><div class="actions">${outAction}</div></div></div>${!j.checkpointIn||!j.checkpointOut?note('เมื่อเช็กอินครบ 2 ด่านแล้ว จึงดำเนินการไปยังปลายทางได้','warn'):note('✓ เช็กอินครบ 2 ด่านแล้ว ข้อมูลส่งถึงเว็บไซต์ EGAT','')}`);
+}
+function deliveryProgressPanel(){const j=s.job;
+ if(!j.trackingStarted)return '';
+ const count=(j.evidenceRecords||[]).length;
+ const round=j.reviewRequired?Math.max(1,j.reviewRound||1):Math.max(1,j.evidenceRound||1);
+ return card(`<h3>${icon('check')} Delivery Verification</h3>
+ ${row('Geofence 500 ม. (จำลอง)',j.arrived?'เข้าเขตปลายทางแล้ว':'ยังไม่ถึง')}
+ ${row('Delivery QR / ผู้รับ',j.receiverScanned?'สแกนแล้ว · '+esc(j.deliveryReceiverId||j.assignedReceiverId||'RCV-0001'):'ยังไม่สแกน')}
+ ${row('หลักฐานใบชั่ง',j.weightPhoto?'บันทึกแล้ว':'ยังไม่บันทึก')}
+ ${row('หลักฐานรถหลังขนถ่าย',j.emptyTruckPhoto?'บันทึกแล้ว':'ยังไม่บันทึก')}
+ ${row('รอบส่งหลักฐาน','รอบที่ '+round)}${row('Evidence ที่บันทึก',count+' รายการ')}
+ ${j.ticketNet!=null?row('น้ำหนักปลายทางตามใบชั่ง',Number(j.ticketNet).toFixed(2)+' ตัน'):''}
+ ${j.reviewRequired?'<div class="notice warn">EGAT ขอหลักฐานรอบใหม่ โปรดสร้างและส่งภาพใหม่ทั้งสองรายการ</div>':''}
+ <div class="sub">บันทึก Evidence ID และรอบหลักฐานเพื่อช่วยตรวจสอบย้อนหลัง (Simulation)</div>`);
+}
+function mobileHome(){const j=s.job,driver=s.mobileRole==='driver';let actions='';
+if(driver){
+if(!s.driverVerified)actions=btn(icon('shield')+'<span>ยืนยันตัวตนคนขับ</span>','auth','yellow');
+else if(!j.qrIssued)actions=note('กำลังรอสถานะจาก EGAT · ดูรายละเอียดคิวและสินค้าได้ด้านล่าง','warn')+`<div class="steps">${upstream()}</div>`;
+else if(!j.dispatchAccepted)actions=btn(icon('qr')+'<span>สแกน QR รับงานและยืนยัน</span>','dispatch','yellow');
+else if(!j.trackingStarted)actions=btn(icon('truck')+'<span>เริ่มการขนส่ง</span>','start','yellow');
+else if(!j.checkpointIn||!j.checkpointOut)actions=note('กรุณาเช็กอิน Checkpoint In และ Out ในการ์ดด้านล่างก่อนเดินทางต่อ','warn');
+else if(j.reviewRequired){
+ const round=Number(j.reviewRound||1);
+ const currentRecord=kind=>(j.evidenceRecords||[]).some(e=>Number(e.round)===round&&e.kind===kind);
+ const weightReady=!!j.weightPhoto&&currentRecord('weight');
+ const emptyReady=!!j.emptyTruckPhoto&&currentRecord('empty');
+ const waitingEGAT=!!j.submitted&&Number(j.evidenceRound||0)>=round&&weightReady&&emptyReady;
+ actions=waitingEGAT
+ ?note('ส่งภาพหลักฐานรอบที่ '+round+' ให้ EGAT แล้ว กรุณารอเจ้าหน้าที่ตรวจสอบและยืนยันผล','')
+ :note('EGAT ขอหลักฐานรอบที่ '+round+' กรุณาสร้างภาพใหม่ทั้ง 2 รูป','red')+
+ `${btn(icon('camera')+'<span>สร้างภาพใบชั่งใหม่</span>','openWeightCamera','yellow',weightReady)}${btn(icon('camera')+'<span>สร้างภาพกระบะใหม่</span>','openEmptyCamera','yellow',emptyReady)}${weightReady&&emptyReady?btn(icon('send')+'<span>ส่งหลักฐานรอบใหม่ให้ EGAT</span>','resubmit','yellow'):''}`;
+}
+else if(!j.near)actions=btn(icon('pin')+'<span>จำลองรถใกล้ถึง 1 กม.</span>','near','secondary');
+else if(!j.qrUnlocked)actions=btn(icon('qr')+'<span>เลื่อนรับ QR ส่งมอบ</span>','unlock','yellow');
+else if(!j.arrived)actions=btn(icon('pin')+'<span>จำลองเข้า Geofence 500 ม.</span>','arrive','secondary');
+else if(!j.receiverScanned)actions=`${note('QR พร้อมแล้ว ให้ผู้รับเข้าสู่แอปอีกบัญชีแล้วสแกน QR')}${card('<div class="qr"><span>DEMO QR</span></div><div style="text-align:center">'+esc(j.id)+'</div>')}`;
+else if(!j.weightPhoto||!j.emptyTruckPhoto)actions=`${note('ผู้รับสแกนแล้ว ถ่ายหลักฐานให้ครบ 2 รูป')}${btn(icon('camera')+'<span>สร้างภาพใบชั่ง Timestamp</span>','openWeightCamera','yellow',j.weightPhoto)}${btn(icon('camera')+'<span>สร้างภาพกระบะ Timestamp</span>','openEmptyCamera','yellow',j.emptyTruckPhoto)}`;
+else if(!j.submitted)actions=btn(icon('send')+'<span>ส่งหลักฐาน e-POD</span>','submit','yellow');
+else if(!j.receiverVerified)actions=note('ส่งหลักฐานครบแล้ว รอผู้รับยืนยันรับสินค้า');
+else actions=note(j.approved?'EGAT อนุมัติปิดงานแล้ว':'ผู้รับยืนยันรับแล้ว · รอผลอนุมัติจาก EGAT');
+} else {
+if(!j.arrived||!j.qrUnlocked)actions=note('ยังไม่มีรถพร้อมส่งมอบ กรุณารอรถถึงปลายทาง','warn');
+else if(!j.receiverScanned)actions=btn(icon('qr')+'<span>สแกน Delivery QR ของคนขับ</span>','receiverScan','yellow');
+else if(!j.submitted)actions=note('ตรวจข้อมูลเรียบร้อย รอคนขับถ่ายและส่งหลักฐาน');
+else if(!j.receiverVerified)actions=`${row('สินค้าที่ได้รับ',esc(j.material))}${row('น้ำหนักต้นทาง',Number(j.net).toFixed(2)+' ตัน')}<div class="receivedWeightCard"><div class="receivedWeightLabel">น้ำหนักตามใบชั่งปลายทาง (Mockup)</div><div class="receivedWeightNumber">${Number.isFinite(Number(j.ticketNet))&&j.ticketNet!=null?Number(j.ticketNet).toFixed(2)+' <small>ตัน</small>':'รอใบชั่งปลายทาง'}</div><div class="sub">ดึงค่าจากหลักฐานใบชั่งที่คนขับส่งมา ไม่ต้องกรอกน้ำหนักซ้ำ</div></div>${btn(icon('check')+'<span>ยืนยันรับสินค้าตามใบชั่ง</span>','receiverAccept','green',!j.weightPhoto||j.ticketNet==null)}`;
+else actions=note(j.reviewRequired?'EGAT ขอหลักฐานเพิ่มเติมจากคนขับแล้ว':'ยืนยันรับสินค้าเรียบร้อยแล้ว');
+}
+return `${driver&&j.reviewRequired?card(`<div class="securityHead"><div class="shieldWrap">${icon('shield')}</div><div><h3 style="margin:0 0 4px">แจ้งเตือนจาก EGAT</h3><div style="font-size:18px;font-weight:800;color:#a52d42">ต้องส่งหลักฐานเพิ่มเติม</div><div class="sub">${esc(j.reviewReason||'กรุณาถ่ายหลักฐานใหม่และส่งให้ EGAT ตรวจสอบอีกครั้ง')}</div><div class="sub">คำขอรอบที่ ${Number(j.reviewRound||1)}</div></div></div>`):''}${card(`<div class="jobSummaryTop"><span class="jobSummaryEyebrow">${driver?'งานขนส่งของฉัน':'รายการที่กำลังมาส่ง'}</span><div class="jobSummaryTitle">${esc(j.material)}</div><div class="jobSummaryIdentifier">${esc(j.id)}</div></div><div class="jobSummaryBody"><div class="jobSummaryInfo"><span>ทะเบียนรถ</span><b>${esc(j.plate)}</b></div><div class="jobSummaryInfo"><span>ปลายทาง</span><b>${esc(j.destination)}</b></div><div class="jobSummaryInfo"><span>${driver?'หมายเลขคิว':'คนขับรถ'}</span><b>${driver?esc(j.queue):esc(j.driver)}</b></div></div>`,'jobSummaryCard')}${card(`<h3>เวลาส่งสินค้า</h3><div style="font-size:25px;font-weight:900;color:var(--navy)">${deadline()}</div><div class="sub">กำหนด 72 ชั่วโมงตั้งแต่เริ่มขนส่ง (เงื่อนไขโครงการจำลอง)</div>`)}${card(`<h3>สิ่งที่ต้องทำตอนนี้</h3>${progress()}<div class="actions">${actions}</div>`)}${driver?checkpointPanel():''}${driver?mobileRiskPanel():receiverStatusPanel()}`;
+}
+function renderAuthPopup(){
+ const root=$('phoneAuthRoot');if(!root)return;
+ if(!authPopup){root.innerHTML='';return;}
+ const isLicense=authPopup==='license';
+ const preview=isLicense?`<div class="licenseDemo" aria-label="ใบขับขี่ตัวอย่าง"><div class="licenseDemoTop">THAI DRIVING LICENCE · SAMPLE RECORD</div><div class="licenseDemoGrid"><div class="personSilhouette">${icon('face')}</div><div class="licenseDemoData"><b>${esc(s.job.driver)}</b><small>รหัสคนขับ: ${esc(s.job.driverId||'DRV-0001')}<br>เลขอ้างอิงใบขับขี่: DL-DEMO-0001<br>สถานะทะเบียนคนขับ: ลงทะเบียนแล้ว</small></div></div></div>`:
+ `<div class="faceScanViewport" aria-label="กรอบสแกนใบหน้าตัวอย่าง"><div class="faceScanGuide">${icon('face')}<div class="scanBeam"></div></div><div class="scanInfo">FACE SCAN PREVIEW · SIMULATED</div></div>`;
+ const checks=isLicense?['ชื่อคนขับตรงกับ Job ที่ได้รับมอบหมาย','รหัสคนขับตรงกับทะเบียนระบบ','ทะเบียนรถตรงกับเที่ยวงาน']:['ภาพใบหน้าอยู่ภายในกรอบสแกน','ตรวจความพร้อมของการยืนยันตัวตน','ผูกผลการยืนยันกับ Job นี้'];
+ root.innerHTML=`<div class="phoneAuthShade" role="presentation"><section class="phoneAuthDialog" role="dialog" aria-modal="true" aria-labelledby="authDialogTitle"><div class="authModalHeader"><span class="authStepBadge">${isLicense?'ขั้นตอน 1 / 2':'ขั้นตอน 2 / 2'}</span><button type="button" class="authX" onclick="doAction('authClose')" aria-label="ปิด">×</button></div><h2 id="authDialogTitle">${isLicense?'ตรวจสอบใบขับขี่':'สแกนใบหน้าคนขับ'}</h2><div class="sub">${isLicense?'ตรวจสอบข้อมูลบนใบขับขี่กับคนขับและรถที่ลงทะเบียน':'จัดใบหน้าให้อยู่ในกรอบกล้องเพื่อจำลองการยืนยันว่าเป็นผู้รับงาน'}</div>${preview}<div class="authCheckRows">${checks.map(t=>`<div class="authCheckRow">${icon('check')}<span>${t}</span></div>`).join('')}</div><div class="authPrototypeNote">ตัวอย่างสำหรับทดสอบ UX/UI เท่านั้น: ยังไม่มีการอ่านใบขับขี่จริง การตรวจจับความมีชีวิต (Liveness) หรือเปรียบเทียบใบหน้าด้วยระบบชีวมิติ</div><div class="actions"><button class="btn yellow" onclick="doAction('${isLicense?'authConfirmLicense':'authConfirmFace'}')">${icon('check')}<span>${isLicense?'ยืนยันข้อมูลใบขับขี่ (จำลอง)':'ยืนยันผลสแกนใบหน้า (จำลอง)'}</span></button><button class="btn secondary" onclick="doAction('authClose')">กลับไปหน้าก่อน</button></div></section></div>`;
+}
+let pendingEvidence=null;
+let cameraStatus='กล้องจำลองพร้อมใช้งาน';
+let mockEvidenceReady=false;
+function stopEvidenceStream(){}
+function renderEvidenceCapture(){
+ if(!captureMode)return '';
+ const label=captureMode==='weight'?'ใบชั่งน้ำหนักปลายทาง':'ภาพกระบะเปล่าหลังขนถ่าย';
+ const isPreview=!!pendingEvidence;
+ return `<div class="evidenceShade" role="presentation"><section class="evidenceDialog" role="dialog" aria-modal="true" aria-label="กล้องหลักฐาน Timestamp (Mockup)">
+ <h3>${icon('camera')} กล้องหลักฐาน Timestamp (Mockup)</h3><div class="sub">${label}</div>
+ <div class="notice">Job ${esc(s.job.id)} · ${esc(s.job.plate)}</div>
+ ${isPreview?`<img class="evidencePhoto" id="evidenceShotPreview" src="${pendingEvidence.data}" alt="ภาพหลักฐานจำลองพร้อมวันที่เวลาและรัศมี"/>`:
+ `<div class="liveCamera mockCameraFrame" id="evidenceCameraBox"><div class="cameraStandby" style="display:flex">${icon('camera')}<div>หน้าจอกล้องจำลองสำหรับ Prototype</div><small>กดปุ่มด้านล่างเพื่อสร้างภาพหลักฐานแบบ Timestamp โดยไม่ต้องเปิดกล้องจริง</small></div><div class="camCorners"></div></div>`}
+ ${isPreview?`<div class="notice">Evidence ID: ${esc(pendingEvidence.evidenceId)} · รอบ ${pendingEvidence.round}</div>`:''}<div class="cameraStatus" id="captureStatus">${isPreview?'สร้างภาพหลักฐานแล้ว · ตรวจรายละเอียดบนภาพก่อนบันทึก':'ระบบจะสร้างภาพหลักฐานแบบ Mockup พร้อมวันเวลา พิกัดจำลอง และรัศมีปลายทางโดยอัตโนมัติ'}</div>
+ <div class="evidenceHint">ข้อมูลบนภาพ: ชื่อหลักฐาน · Job ID · ทะเบียนรถ · วันที่–เวลาอัตโนมัติ · ระยะจากจุดส่ง (จำลอง) · Geofence 500 ม. · พิกัดจำลอง</div>
+ <div class="actions">
+ ${isPreview?`<button class="btn evidenceConfirm" onclick="confirmEvidencePhoto()">${icon('check')} บันทึกภาพพร้อม Timestamp</button><button class="btn evidenceSecondary" onclick="retryEvidencePhoto()">สร้างภาพใหม่</button>`:
+ `<button class="btn evidenceMain" onclick="startEvidenceCamera()">${icon('camera')} สร้างภาพหลักฐานจำลอง</button>`}
+ <button class="btn evidenceSecondary" onclick="closeEvidenceCamera()">ยกเลิก</button>
+ </div>
+ <div class="captureNote">Prototype: หน้านี้เป็น Mockup ไม่ได้เปิดกล้องจริง แต่จะแสดงผลลัพธ์ภาพหลักฐานในรูปแบบ Timestamp เพื่อใช้สาธิต Flow ของระบบ</div>
+ </section></div>`;
+}
+function refreshEvidenceDialog(){const old=document.querySelector('.evidenceShade');if(!captureMode){old?.remove();return;}if(old){old.outerHTML=renderEvidenceCapture();}}
+function createMockEvidence(mode){
+ const canvas=document.createElement('canvas');
+ const w=720,h=960;canvas.width=w;canvas.height=h;const ctx=canvas.getContext('2d');
+ const now=new Date();
+ const timestamp=now.toLocaleString('th-TH',{dateStyle:'medium',timeStyle:'medium'});
+ const distance=mode==='weight'?312:278;
+ const coords=mode==='weight'?'19.18645, 99.88421':'19.18611, 99.88372';
+ const title=mode==='weight'?'ใบชั่งน้ำหนักปลายทาง':'กระบะเปล่าหลังขนถ่าย';
+ const subtitle=mode==='weight'?'Destination Weight Ticket':'Empty Truck After Unloading';
+ ctx.fillStyle='#dbe8f7';ctx.fillRect(0,0,w,h);
+ const g=ctx.createLinearGradient(0,0,0,h);g.addColorStop(0,'#0d2a45');g.addColorStop(1,'#173d63');ctx.fillStyle=g;ctx.fillRect(36,36,w-72,h-72);
+ ctx.fillStyle='#f4f7fb';ctx.fillRect(68,118,w-136,h-300);
+ ctx.strokeStyle='#b7c7da';ctx.lineWidth=3;ctx.strokeRect(68,118,w-136,h-300);
+ ctx.fillStyle='#365c87';ctx.fillRect(68,118,w-136,46);
+ ctx.fillStyle='#ffffff';ctx.font='700 24px Arial';ctx.fillText(subtitle,92,148);
+ if(mode==='weight'){
+   ctx.fillStyle='#ffffff';ctx.fillRect(112,214,496,280);ctx.strokeStyle='#37557b';ctx.lineWidth=2;ctx.strokeRect(112,214,496,280);
+   ctx.fillStyle='#173d63';ctx.font='700 28px Arial';ctx.fillText('WEIGHT TICKET',248,254);
+   ctx.font='500 24px Arial';ctx.fillText('Origin Net: '+Number(s.job.net||25.50).toFixed(2)+' t',142,314);ctx.fillText('Destination Net: '+Number(s.job.ticketNet??25.55).toFixed(2)+' t',142,354);ctx.fillText('Vehicle: '+s.job.plate,142,394);ctx.fillText('Driver: '+s.job.driver,142,434);ctx.fillText('Receiver: '+(s.receiverFullName||'ผู้รับสินค้า'),142,474);
+ } else {
+   ctx.fillStyle='#c8d8ea';ctx.fillRect(118,246,484,178);ctx.fillStyle='#8ea9c6';ctx.fillRect(162,210,396,42);ctx.fillStyle='#173d63';ctx.fillRect(138,388,444,72);
+   ctx.fillStyle='#ffffff';ctx.font='700 24px Arial';ctx.fillText('EMPTY TRUCK EVIDENCE',208,432);
+ }
+ ctx.fillStyle='#0c2541';ctx.fillRect(68,646,w-136,226);
+ ctx.fillStyle='#f9c748';ctx.fillRect(68,646,w-136,6);
+ ctx.fillStyle='#ffffff';ctx.font='700 24px Arial';ctx.fillText('EGAT LOGISTICS  /  TIMESTAMP DEMO',90,689);
+ ctx.font='600 22px Arial';ctx.fillText(title,90,727);
+ ctx.font='500 18px Arial';
+ const lines=[
+   `Date & time: ${timestamp}`,
+   `Job: ${s.job.id}`,
+   `Vehicle: ${s.job.plate}`,
+   `Distance: ${distance} m  /  Geofence: 500 m`,
+   `Demo GPS: ${coords}`
+ ];
+ lines.forEach((line,i)=>ctx.fillText(line,90,758+i*23));
+ const round=s.job.reviewRequired?Math.max(1,Number(s.job.reviewRound||1)):Math.max(1,Number(s.job.evidenceRound||1));
+ const evidenceId='EVD-'+s.job.id.split('-').pop()+'-R'+String(round).padStart(2,'0')+'-'+(mode==='weight'?'WT':'ET')+'-'+String((s.job.evidenceRecords||[]).length+1).padStart(2,'0');
+ return {data:canvas.toDataURL('image/jpeg',0.78),at:now.toISOString(),distance,coords,round,evidenceId,kind:mode,ticketNet:mode==='weight'?Number(s.job.ticketNet??25.55):null};
+}
+function startEvidenceCamera(){if(!captureMode)return;pendingEvidence=createMockEvidence(captureMode);mockEvidenceReady=true;refreshEvidenceDialog();}
+function retryEvidencePhoto(){pendingEvidence=null;mockEvidenceReady=false;refreshEvidenceDialog();}
+function closeEvidenceCamera(){pendingEvidence=null;captureMode=null;mockEvidenceReady=false;refreshEvidenceDialog();}
+function confirmEvidencePhoto(){
+ if(!captureMode||!pendingEvidence)return;
+ if(captureMode==='weight'){s.job.weightPhoto=true;s.job.weightPhotoAt=pendingEvidence.at;s.job.weightPhotoImage=pendingEvidence.data;s.job.ticketNet=Number(pendingEvidence.ticketNet??25.55);}
+ if(captureMode==='empty'){s.job.emptyTruckPhoto=true;s.job.emptyTruckAt=pendingEvidence.at;s.job.emptyTruckImage=pendingEvidence.data;}
+ const evLabel=captureMode==='weight'?'บันทึกใบชั่งปลายทางพร้อม Timestamp':'บันทึกภาพกระบะเปล่าพร้อม Timestamp';
+ if(!Array.isArray(s.job.evidenceRecords))s.job.evidenceRecords=[];
+ s.job.evidenceRecords.push({id:pendingEvidence.evidenceId,kind:pendingEvidence.kind,round:pendingEvidence.round,at:pendingEvidence.at,geofenceRadius:500,distanceDemo:pendingEvidence.distance,jobId:s.job.id,receiverId:s.job.deliveryReceiverId||null,source:'MOCKUP',imageData:pendingEvidence.data});
+ pendingEvidence=null;mockEvidenceReady=false;captureMode=null;save(evLabel);
+}
+function mobileLogin(){
+ if(s.mobileView==='login')return `<h2>เข้าสู่ระบบ</h2><div class="sub">เลือกบทบาทเพื่อทดลองแอปมือถือ</div>${card(`<div class="steps"><div class="step"><div class="num">1</div><div><b>คนขับรถ</b><span>ใช้สำหรับรับงาน ขนส่ง และส่งหลักฐานการส่งมอบ</span></div></div><div class="step"><div class="num">2</div><div><b>ผู้รับสินค้า</b><span>ใช้สำหรับสแกน QR ตรวจข้อมูล และยืนยันรับสินค้า</span></div></div></div><div class="actions">${btn(icon('truck')+'<span>คนขับรถ</span>','roleDriver','yellow')}${btn(icon('box')+'<span>ผู้รับสินค้า</span>','roleReceiver','secondary')}</div>`)} `;
+ if(s.mobileView==='credentials')return `<h2>ยืนยันตัวตน${s.mobileRole==='driver'?'คนขับ':'ผู้รับสินค้า'}</h2>${s.mobileRole==='driver'&&s.driverRoundNotice?note('EGAT อนุมัติปิดงาน '+esc(s.driverRoundNotice)+' เรียบร้อยแล้ว ระบบออกจากระบบคนขับอัตโนมัติ กรุณาเข้าสู่ระบบใหม่สำหรับเที่ยวขนส่งถัดไป','green'):''}`+card(`<label class="field">เบอร์โทรศัพท์<input class="input" value="${s.mobileRole==='driver'?'0812345678':'0890000002'}" readonly></label><label class="field">OTP สำหรับ Demo<input class="input" id="otp" inputmode="numeric" value="123456"></label><div class="actions">${btn(icon('check')+'<span>เข้าสู่ระบบ</span>','loginSubmit','yellow')}${btn('ย้อนกลับ','backRole','secondary')}</div>`);
+ if(s.mobileView==='receiverRegister')return `<h2>ตรวจสอบสิทธิ์ผู้รับสินค้า</h2><div class="sub">กรอกรหัสผู้รับเพียงช่องเดียว ระบบจะแสดงชื่อและหน่วยงานที่ลงทะเบียนไว้โดยอัตโนมัติ</div>${card(`
+  <label class="field">รหัสผู้รับสินค้า<input class="input" id="receiverCode" inputmode="text" autocomplete="off" placeholder="ตัวอย่าง RCV-0001" value="${esc(s.receiverEmployeeCode||'')}"></label>
+  <div class="sub" style="margin:8px 0 14px">รหัสสำหรับทดลอง: <b>RCV-0001</b> (ได้รับอนุญาต) · <b>RCV-0002</b> (คนละปลายทาง)</div>
+  <div class="actions">${btn(icon('shield')+'<span>ตรวจสอบรหัสผู้รับ</span>','lookupReceiver','secondary')}</div>
+  ${receiverLookup?`<div class="securityCard" style="margin-top:16px"><h3 style="margin:0 0 12px">ข้อมูลผู้รับที่ลงทะเบียน</h3>${row('ชื่อ–นามสกุล',esc(receiverLookup.name))}${row('หน่วยงาน',esc(receiverLookup.company))}${row('Job ที่ได้รับอนุญาต',esc(receiverLookup.jobId))}<div class="notice green" style="margin-top:12px">${icon('check')} ข้อมูลตรงกับทะเบียนผู้รับและปลายทางของงานนี้</div></div>`:''}
+  ${receiverFormError?`<div role="alert" style="background:#ffedf0;color:#9b1c32;border:1px solid #f1bdc7;border-radius:12px;padding:13px;font-weight:750;line-height:1.55;margin:10px 0">${esc(receiverFormError)}</div>`:''}
+  <div class="actions">${receiverLookup?btn(icon('check')+'<span>ยืนยันว่าเป็นผู้รับรายนี้ (จำลอง)</span>','receiverRegisterConfirm','yellow'):''}${btn('ย้อนกลับ','backRole','secondary')}</div>
+  <div class="sub" style="margin-top:12px">Prototype: การค้นด้วยรหัสนี้เป็นเพียงการตรวจสิทธิ์จากทะเบียนตัวอย่าง ระบบจริงยังต้องตรวจตัวตนด้วย OTP และบัญชีผู้รับที่ผูกกับรหัสนี้</div>
+ `)}`;
+ if(s.mobileView==='verify')return `<h2>ยืนยันตัวตนคนขับ</h2><div class="sub">ขั้นตอนตรวจสอบสำหรับ Prototype จำลองแนวทางด้านความปลอดภัยก่อนเริ่มงาน</div>`+card(`<div class="securePanel"><div class="securityHead"><div class="shieldWrap" style="background:rgba(255,255,255,.12);color:#fff">${icon('shield')}</div><div><b style="font-size:18px">ศูนย์ยืนยันตัวตนการขนส่ง</b><div class="sub">ตรวจสอบใบขับขี่ · ตรวจสอบทะเบียนรถ · ยืนยันใบหน้าคนขับ</div></div></div><div class="secureRow"><span>คนขับที่ลงทะเบียน</span><b>${esc(s.job.driverId||'DRV-0001')} · ${esc(s.job.driver)}</b></div><div class="secureRow"><span>ทะเบียนรถที่ได้รับมอบหมาย</span><b>${esc(s.job.vehicleId||'VEH-0001')} · ${esc(s.job.plate)}</b></div><div class="secureRow"><span>สถานะการเชื่อมต่อ</span><b>ออนไลน์ · Demo</b></div></div><div class="securityMeta"><div class="securityItem"><div><b>ตรวจใบขับขี่</b><div class="sub">อ่านข้อมูลจากใบขับขี่และเทียบกับรายการลงทะเบียนของเที่ยวขนส่งนี้</div></div><div>${s.authStep>=1?'<span class="securityTag">'+icon('check')+'<span>ผ่าน</span></span>':'<span class="badge warn">รอตรวจสอบ</span>'}</div></div><div class="securityItem"><div><b>สแกนใบหน้าคนขับ</b><div class="sub">ยืนยันว่าเป็นบุคคลเดียวกับผู้รับงานก่อนเริ่มขนส่ง</div></div><div>${s.authStep>=2?'<span class="securityTag">'+icon('check')+'<span>ผ่าน</span></span>':'<span class="badge warn">รอตรวจสอบ</span>'}</div></div></div><div class="actions">${s.authStep===0?btn(icon('id')+'<span>เริ่มตรวจใบขับขี่</span>','license','yellow'):s.authStep===1?btn(icon('face')+'<span>เริ่มสแกนใบหน้า</span>','face','yellow'):btn(icon('check')+'<span>เข้าสู่หน้าหลัก</span>','finishVerify','green')}</div>`);
+ return '<h2>เข้าสู่ระบบ</h2>';
+}
+function mobileJob(){const j=s.job;return `<h2>รายละเอียดงาน</h2>${card(`${row('Job ID',esc(j.id))}${row('ลูกค้า / ผู้ซื้อ',esc(j.customerName||'ยังไม่ผูกข้อมูลลูกค้า'))}${row('รหัสลูกค้า',esc(j.customerCode||'—'))}${row('ทะเบียนรถ',esc(j.plate))}${row('คนขับ',esc(j.driver))}${row('สินค้า',esc(j.material))}${row('น้ำหนักสุทธิ',j.weighted?j.net+' ตัน':'รอผลชั่ง')}${row('ปลายทาง',esc(j.destination))}${row('สถานะ',status())}${row('Status Code',demoJobStatus(j))}${row('Driver ID',esc(j.driverId||'DRV-0001'))}${row('Vehicle ID',esc(j.vehicleId||'VEH-0001'))}${row('Receiver ID',esc(j.assignedReceiverId||'RCV-0001'))}`)}${card(`<h3>ลำดับงานจาก EGAT</h3><div class="steps">${upstream()}</div>`)}`}
+function mobileAccount(){return `<h2>บัญชี</h2>${card(`${row('บทบาท',s.mobileRole==='driver'?'คนขับรถ':'ผู้รับสินค้า')}${row('การยืนยันตัวตน',s.mobileRole==='driver'?(s.driverVerified?'ผ่านการยืนยันแล้ว':'ยังไม่ผ่าน'):'เข้าสู่ระบบแล้ว')}${row('Job ที่กำลังใช้งาน',esc(s.job.id))}${row('Receiver Authorization',s.mobileRole==='receiver'?(demoReceiverAllowed()?'มีสิทธิ์สำหรับ Job':'ไม่มีสิทธิ์'):'—')}`)}${phaseInfo()}<details class="quietDetails"><summary>ข้อมูลสำหรับเชื่อมต่อฐานข้อมูล (Demo)</summary><div class="sub">ตัวอย่างข้อมูล JSON สำหรับ API/Database ในอนาคต ไม่ใช่ข้อมูล EGAT จริง</div>${btn('ส่งออกข้อมูล JSON','exportDemoData','secondary')}</details><div class="actions">${btn(icon('swap')+'<span>สลับบทบาทสำหรับสาธิต</span>','switchRole','secondary')}${btn('ออกจากระบบ','logout','light')}</div>`}
+function receiverCompletionScreen(){
+ const j=s.job;
+ const receivedAt=j.receiverConfirmedAt?new Date(j.receiverConfirmedAt).toLocaleString('th-TH',{dateStyle:'medium',timeStyle:'short'}):'บันทึกเรียบร้อย';
+ const ticketNet=Number(j.ticketNet);
+ return `<div class="receiverComplete">
+  <div class="receiverCompleteHero"><div class="receiverCompleteIcon">${icon('check')}</div><h2>รับสินค้าสำเร็จ</h2><div class="sub">ระบบบันทึกการยืนยันรับสินค้าเรียบร้อยแล้ว</div></div>
+  ${card(`<div class="receiverSummaryCard"><h3>สรุปการรับมอบ</h3>
+    ${row('หมายเลขงาน',esc(j.id))}
+    ${row('ทะเบียนรถ',esc(j.plate))}
+    ${row('สินค้า',esc(j.material))}
+    ${row('น้ำหนักตามใบชั่งปลายทาง',Number.isFinite(ticketNet)&&ticketNet>0?ticketNet.toFixed(2)+' ตัน':'รอข้อมูลใบชั่ง')}
+    ${row('วันเวลาที่ยืนยัน',esc(receivedAt))}
+    ${row('สถานะ','ผู้รับยืนยันการรับมอบแล้ว')}</div>`)}
+  <div class="receiverWaitingNote">${j.approved?'EGAT อนุมัติปิดงานแล้ว':'ข้อมูลการรับมอบถูกส่งเข้าสู่ระบบแล้ว และอยู่ระหว่างรอ EGAT ตรวจสอบและอนุมัติปิดงาน'}<br>สามารถออกจากระบบได้ โดยไม่กระทบหลักฐานและสถานะการรับมอบที่บันทึกไว้</div>
+  <button class="btn yellow finishAction" type="button" onclick="doAction('receiverFinish')">${icon('check')}<span>เสร็จสิ้นและกลับหน้าเข้าสู่ระบบ</span></button>
+  <div class="sub" style="text-align:center">เที่ยวขนส่งถัดไปต้องเข้าสู่ระบบใหม่ทุกครั้ง</div>
+ </div>`;
+}
+function renderMobile(){if(!LAN_ROLE){$('mobileRoot').innerHTML=renderRoleSelection();$('mobileTabs').style.display='none';document.getElementById('backRole').style.display='none';return;}document.getElementById('backRole').style.display='block';const subtitle=document.getElementById('phoneRoleSubtitle');if(subtitle)subtitle.textContent=s.mobileRole==='driver'?'Driver Mobile':s.mobileRole==='receiver'?'Receiver Mobile':'Mobile Application';let html;if(!s.logged)html=mobileLogin();else if(s.mobileRole==='receiver'&&s.job.receiverVerified)html=receiverCompletionScreen();else if(s.mobileTab==='tracking'&&s.mobileRole==='receiver')html=receiverTracking();else if(s.mobileTab==='job')html=mobileJob();else if(s.mobileTab==='account')html=mobileAccount();else html=mobileHome();const roleLabel=s.mobileRole==='driver'?'คนขับรถ':'ผู้รับสินค้า';const toolbar=s.logged?`<div class="mobiletoolbar"><div class="miniBadge">${icon(s.mobileRole==='driver'?'truck':'box')}<span>${roleLabel}</span></div><button class="switchrole" onclick="doAction('switchRole')">${icon('swap')}<span>Switch role</span></button></div>`:'';$('mobileRoot').innerHTML=toolbar+html;$('mobileTabs').style.display=s.logged&&!(s.mobileRole==='receiver'&&s.job.receiverVerified)?'grid':'none';const navButtons=[...document.querySelectorAll('#mobileTabs button')];const isReceiver=s.mobileRole==='receiver';if(navButtons[1]){navButtons[1].setAttribute('onclick',isReceiver?"mobileTab('tracking')":"mobileTab('job')");navButtons[1].querySelector('span:last-child').textContent=isReceiver?'ติดตามสินค้า':'รายละเอียดงาน';}navButtons.forEach((b,i)=>b.classList.toggle('active',['home',isReceiver?'tracking':'job','account'][i]===s.mobileTab));renderAuthPopup();if(captureMode){$('mobileRoot').insertAdjacentHTML('beforeend',renderEvidenceCapture())}}
+function render(){renderMobile()}
+function staffView(v){s.staffView=v;save()}
+function mobileTab(v){s.mobileTab=v;save()}
+function mode(v){modeValue=v; $('staffPanel').classList.toggle('hide',v==='mobile');$('phonePanel').classList.toggle('hide',v==='staff');$('layout').style.gridTemplateColumns=v==='staff'?'1fr':v==='mobile'?'1fr':'minmax(0,1fr) 410px';for(const k of ['Both','Staff','Mobile'])$('mode'+k).classList.toggle('active',k.toLowerCase()===v);}
+function doAction(a){const j=s.job;const events={call:'EGAT เรียกคิว',gate:'EGAT ตรวจประตูแล้ว',loaded:'EGAT ยืนยันโหลดสินค้า',weighted:'EGAT บันทึกน้ำหนัก 25.20 ตัน',qr:'EGAT ออก Dispatch QR',dispatch:'คนขับรับงานผ่าน QR',start:'คนขับเริ่มขนส่ง',near:'GPS จำลอง: ใกล้ถึงระยะ 1 กม.',unlock:'คนขับเปิด Delivery QR',arrive:'GPS จำลอง: ถึงปลายทาง 500 ม.',receiverScan:'ผู้รับสแกน Delivery QR',weightPhoto:'คนขับบันทึกใบชั่งปลายทาง Timestamp จำลอง',emptyTruck:'คนขับบันทึกภาพกระบะเปล่า Timestamp จำลอง',submit:'คนขับส่ง e-POD',receiverAccept:'ผู้รับยืนยันรับสินค้า',receiverFinish:'ผู้รับออกจากระบบหลังยืนยันรับสินค้า',approve:'EGAT อนุมัติปิดงาน',route:'แจ้งเตือนสถานะเส้นทางเปลี่ยน',gps:'สถานะ GPS เปลี่ยน',time:'จำลองเวลาผ่านไป 24 ชั่วโมง',enterCheckpointIn:'รถเข้าสู่รัศมี Checkpoint In (จำลอง)',checkIn:'คนขับยืนยัน Checkpoint In',enterCheckpointOut:'รถเข้าสู่รัศมี Checkpoint Out (จำลอง)',checkOut:'คนขับยืนยัน Checkpoint Out',resubmit:'คนขับส่งหลักฐานรอบใหม่ให้ EGAT'};
+switch(a){case 'openReceiverTracking':if(s.mobileRole==='receiver'&&s.logged&&demoReceiverAllowed())s.mobileTab='tracking';break;case 'goHome':s.mobileTab='home';break;case 'exportDemoData':exportDemoData();return;case 'to-queue':s.staffView='queue';break;case 'to-review':s.staffView='review';break;case 'to-tracking':s.staffView='tracking';break;
+case 'call':j.queueCalled=true;break;case 'gate':if(!j.queueCalled)return;j.gate=true;break;case 'loaded':if(!j.gate)return;j.loaded=true;break;case 'weighted':if(!j.loaded)return;j.weighted=true;break;case 'qr':if(!j.weighted)return;j.qrIssued=true;break;
+case 'roleDriver':s.mobileRole='driver';s.mobileView='credentials';break;case 'roleReceiver':receiverLookup=null;receiverFormError='';s.mobileRole='receiver';s.mobileView='credentials';break;case 'backRole':authPopup=null;receiverLookup=null;receiverFormError='';s.mobileView='login';break;case 'auth':s.logged=false;s.mobileView='verify';break;case 'switchRole':authPopup=null;s.logged=false;s.mobileTab='home';s.mobileView='credentials';s.mobileRole=s.mobileRole==='driver'?'receiver':'driver';if(s.mobileRole==='driver'){s.driverVerified=false;s.authStep=0;}break;
+case 'loginSubmit':if(s.mobileRole==='driver'&&j.approved){alert('เที่ยวงานนี้อนุมัติปิดงานแล้ว กรุณารอเจ้าหน้าที่ EGAT มอบหมาย Job ถัดไป หรือรีเซ็ต Demo เพื่อทดลองรอบใหม่');return;}if(($('otp')?.value||'')!=='123456'){alert('ใช้ OTP 123456 สำหรับ Demo');return;}s.logged=true;s.mobileView='app';s.mobileTab='home';if(s.mobileRole==='driver'&&!s.driverVerified){s.mobileView='verify';s.logged=false;}else if(s.mobileRole==='receiver'&&!demoReceiverAllowed()){s.receiverRegistered=false;s.receiverIdentityChecked=false;s.mobileView='receiverRegister';s.logged=false;}break;
+case 'lookupReceiver':{
+  const code=($('receiverCode')?.value||'').trim().toUpperCase();
+  s.receiverEmployeeCode=code;receiverLookup=null;receiverFormError='';
+  if(!code){receiverFormError='กรุณากรอกรหัสผู้รับสินค้า';break;}
+  const r=DEMO_RECEIVERS.find(x=>x.id===code&&x.active);
+  if(!r){receiverFormError='ไม่พบรหัสผู้รับในทะเบียน กรุณาตรวจสอบอีกครั้ง';break;}
+  if(r.jobId!==j.id||r.id!==j.assignedReceiverId||r.company!==j.destination){receiverFormError='รหัสนี้ไม่มีสิทธิ์รับสินค้าสำหรับ Job และปลายทางนี้';break;}
+  receiverLookup=r;s.receiverFullName=r.name;s.receiverBusiness=r.company;
+  break;
+}
+case 'receiverRegisterConfirm':{
+  const code=($('receiverCode')?.value||'').trim().toUpperCase();
+  const r=DEMO_RECEIVERS.find(x=>x.active&&x.id===code&&x.jobId===j.id&&x.id===j.assignedReceiverId&&x.company===j.destination);
+  if(!receiverLookup||!r||receiverLookup.id!==r.id){receiverLookup=null;receiverFormError='กรุณากดตรวจสอบรหัสผู้รับอีกครั้งก่อนยืนยัน';break;}
+  receiverFormError='';receiverLookup=null;
+  s.receiverFullName=r.name;s.receiverEmployeeCode=r.id;s.receiverBusiness=r.company;
+  s.receiverId=r.id;s.receiverAuthorizedJob=j.id;s.receiverRegistered=true;s.receiverIdentityChecked=true;
+  s.logged=true;s.mobileView='app';s.mobileTab='home';break;
+}
+case 'openWeightCamera':if(!j.receiverScanned)return;pendingEvidence=null;cameraStatus='ยังไม่ได้เปิดกล้อง';captureMode='weight';break;case 'openEmptyCamera':if(!j.receiverScanned)return;pendingEvidence=null;cameraStatus='ยังไม่ได้เปิดกล้อง';captureMode='empty';break;case 'closeEvidence':closeEvidenceCamera(false);break;case 'useSimEvidence':if(captureMode==='weight'){j.weightPhoto=true;j.weightPhotoAt=new Date().toISOString()}else if(captureMode==='empty'){j.emptyTruckPhoto=true;j.emptyTruckAt=new Date().toISOString()}captureMode=null;break;
+case 'gpsHeartbeat':if(!j.trackingStarted)return; if(!j.internet){recordTracking('GPS Ping รอซิงก์');break;}s.lastGPSAt=new Date().toISOString();j.gps=true;recordTracking('รับ GPS Ping สำเร็จ (จำลอง)');break;
+case 'toggleOffline':if(!j.trackingStarted)return; j.internet=!j.internet;if(!j.internet){s.trackingGapStartedAt=new Date().toISOString();recordTracking('อินเทอร์เน็ตขาด · เริ่ม Offline Cache');}else{const n=(s.offlineQueue||[]).length;s.offlineQueue=[];s.trackingGapMinutes=Math.max(Number(s.trackingGapMinutes||0),Math.round((Date.now()-Date.parse(s.trackingGapStartedAt||new Date().toISOString()))/60000));s.trackingGapStartedAt=null;s.lastGPSAt=new Date().toISOString();recordTracking('ซิงก์ข้อมูลย้อนหลัง '+n+' รายการ');}break;
+case 'simulateGap':if(!j.trackingStarted)return;s.lastGPSAt=new Date(Date.now()-15*60000).toISOString();s.trackingGapMinutes=15;j.gps=false;j.incidentOpen=true;j.incidentType='GPS ขาดข้อมูล 15 นาที';j.incidentAt=new Date().toISOString();recordTracking('Tracking Gap 15 นาที');break;
+case 'longStop':if(!j.trackingStarted)return;recordTracking('หยุดรถผิดปกติ 35 นาที');s.stoppedMinutes=35;j.incidentOpen=true;j.incidentType='รถหยุดนาน';j.incidentAt=new Date().toISOString();break;
+case 'explainBreakdown':if(!j.trackingStarted)return;s.driverExplanation='รถเสียระหว่างเดินทาง แจ้งตรวจสอบและซ่อมรถแล้ว';j.incidentOpen=true;j.incidentType='คนขับแจ้งรถเสีย';j.incidentAt=new Date().toISOString();break;
+case 'explainRest':if(!j.trackingStarted)return;s.driverExplanation='หยุดพักตามข้อกำหนดความปลอดภัย';j.incidentOpen=true;j.incidentType='คนขับแจ้งหยุดพัก';j.incidentAt=new Date().toISOString();break;
+case 'clearRisk':s.stoppedMinutes=0;j.routeDeviation=false;j.gps=true;j.internet=true;s.lastGPSAt=new Date().toISOString();recordTracking('สถานะติดตามกลับมาปกติ');/* Incident remains open pending EGAT acknowledgement. */break;
+case 'license':if(s.mobileRole==='driver'&&s.mobileView==='verify'&&s.authStep===0)authPopup='license';break;case 'face':if(s.mobileRole==='driver'&&s.mobileView==='verify'&&s.authStep===1)authPopup='face';break;case 'authClose':authPopup=null;break;case 'authConfirmLicense':if(authPopup!=='license'||s.authStep!==0)return;authPopup=null;s.authStep=1;break;case 'authConfirmFace':if(authPopup!=='face'||s.authStep!==1)return;authPopup=null;s.authStep=2;break;case 'finishVerify':if(s.authStep!==2)return;if(!demoDriverAssignmentAllowed()){alert('คนขับที่ได้รับมอบหมายยังไม่อยู่ในทะเบียนจำลอง กรุณาให้ EGAT ตรวจสอบการมอบหมายก่อน');return;}s.driverVerified=true;s.driverAuthKey=demoDriverAuthKey(j);s.logged=true;s.mobileView='app';s.mobileTab='home';break;
+case 'dispatch':if(!j.qrIssued||!s.driverVerified||!demoDriverAssignmentAllowed()||s.driverAuthKey!==demoDriverAuthKey(j))return;j.dispatchAccepted=true;break;case 'start':if(!j.dispatchAccepted||!s.driverVerified||!demoDriverAssignmentAllowed()||s.driverAuthKey!==demoDriverAuthKey(j))return;j.trackingStarted=true;j.dispatchAt=new Date().toISOString();s.lastGPSAt=j.dispatchAt;break;case 'enterCheckpointIn':if(!j.trackingStarted||j.checkpointIn)return;j.checkpointInZone=true;break;
+case 'checkIn':if(!j.trackingStarted||!j.checkpointInZone||j.checkpointIn)return;j.checkpointIn=true;break;
+case 'enterCheckpointOut':if(!j.checkpointIn||j.checkpointOut)return;j.checkpointOutZone=true;break;
+case 'checkOut':if(!j.checkpointIn||!j.checkpointOutZone||j.checkpointOut)return;j.checkpointOut=true;break;
+case 'near':if(!j.trackingStarted||!j.checkpointIn||!j.checkpointOut)return;j.near=true;break;case 'unlock':if(!j.near)return;j.qrUnlocked=true;break;case 'arrive':if(!j.qrUnlocked)return;j.arrived=true;break;
+case 'receiverScan':if(!j.arrived||!j.qrUnlocked||!demoReceiverAllowed())return;j.receiverScanned=true;j.deliveryQRVerifiedAt=new Date().toISOString();j.deliveryReceiverId=s.receiverId;j.receiverScannedAt=j.deliveryQRVerifiedAt;s.receiverQty='';break;case 'weightPhoto':if(!j.receiverScanned)return;j.weightPhoto=true;break;case 'emptyTruck':if(!j.receiverScanned)return;j.emptyTruckPhoto=true;break;case 'submit':submitEpodFromSharedJob();return;
+case 'resubmit':if(!j.reviewRequired||!j.weightPhoto||!j.emptyTruckPhoto||!Array.isArray(j.evidenceRecords)||!['weight','empty'].every(kind=>j.evidenceRecords.some(e=>Number(e.round)===Number(j.reviewRound)&&e.kind===kind))){alert('กรุณาบันทึกหลักฐานทั้งสองภาพของรอบปัจจุบันก่อนส่งใหม่');return;}j.submitted=true;j.evidenceRound=j.reviewRound;break;case 'receiverAccept':{if(!j.submitted||!j.receiverScanned||!demoReceiverAllowed())return;if(j.ticketNet==null||!Number.isFinite(Number(j.ticketNet))||Number(j.ticketNet)<=0){alert('ยังไม่มีน้ำหนักจากใบชั่งปลายทาง กรุณารอหลักฐาน');return;}j.receiverVerified=true;j.receiverConfirmedAt=new Date().toISOString();j.gpsTrackingStoppedAt=j.receiverConfirmedAt;break;}case 'approve':if(!j.receiverVerified||!j.submitted||j.reviewRequired||((j.reviewRound||0)>(j.evidenceRound||0)))return;j.approved=true;break;
+case 'route':if(!j.trackingStarted)return;j.routeDeviation=!j.routeDeviation;if(j.routeDeviation){j.incidentOpen=true;j.incidentType='ออกนอกเส้นทาง';j.incidentAt=new Date().toISOString();}break;case 'gps':if(!j.trackingStarted)return;j.gps=!j.gps;recordTracking(j.gps?'GPS กลับมาทำงาน':'GPS ขาดสัญญาณ');if(j.gps)s.lastGPSAt=new Date().toISOString();else{j.incidentOpen=true;j.incidentType='GPS ขาดสัญญาณ';j.incidentAt=new Date().toISOString();}break;case 'time':if(!j.trackingStarted)return;j.addHours=(j.addHours||0)+24;break;
+case 'receiverFinish':if(s.mobileRole!=='receiver'||!j.receiverVerified)return;authPopup=null;s.logged=false;s.authStep=0;s.mobileView='credentials';s.mobileRole='receiver';s.mobileTab='home';break;
+case 'logout':authPopup=null;s.logged=false;s.driverVerified=false;s.authStep=0;s.mobileView='login';s.mobileRole=null;s.mobileTab='home';break;}
+save(events[a]||'เปลี่ยนหน้าจอ')}
+function resetDemo(){if(!confirm('เริ่มการทดลองใหม่ทั้งหมดใช่ไหม?'))return;s=initial();save('เริ่มต้นใหม่')}
+window.addEventListener('storage',e=>{if(e.key===STORAGE){try{s=JSON.parse(e.newValue);render();pushMobileToStaff()}catch{}}});
+
+// Keep both independently designed interfaces synchronized inside this ONE offline HTML.
+
+// Local demo Data Adapter. Contract is stable for replacing the adapter with a secure backend.
+const EGAT_DATA_CONTRACT=Object.freeze({schemaVersion:'1.0.0',mode:'offline-demo',entities:['jobs','drivers','vehicles','receivers','gps_events','checkpoints','evidence','incidents','audit_events'],idFields:{job:'job_id',driver:'driver_id',vehicle:'vehicle_id',receiver:'receiver_id',evidence:'evidence_id'}});
+function exportNormalizedData(){
+ const j=s.job,when=new Date().toISOString();
+ return {metadata:{schema_version:EGAT_DATA_CONTRACT.schemaVersion,exported_at:when,source:'EGAT Offline Demonstration',real_data:false},
+ jobs:[{job_id:j.id,order_id:j.orderId||null,status_code:demoJobStatus(j),material:j.material,origin:'โรงไฟฟ้าแม่เมาะ',destination:j.destination,driver_id:j.driverId||'DRV-0001',vehicle_id:j.vehicleId||'VEH-0001',receiver_id:j.assignedReceiverId||'RCV-0001',origin_net_tonnes:j.weighted?Number(j.net):null,destination_net_tonnes:j.ticketNet==null?null:Number(j.ticketNet),dispatch_at:j.dispatchAt||null,approved:!!j.approved}],
+ drivers:[{driver_id:j.driverId||'DRV-0001',display_name:j.driver,verified_in_demo:!!s.driverVerified}],
+ vehicles:[{vehicle_id:j.vehicleId||'VEH-0001',plate_number:j.plate}],
+ receivers:[{receiver_id:j.assignedReceiverId||'RCV-0001',display_name:s.receiverFullName||null,authorized_job_id:j.id,verified_in_demo:!!s.receiverIdentityChecked}],
+ gps_events:(s.trackingEvents||[]).map((e,i)=>({event_id:'GPS-DEMO-'+String(i+1).padStart(4,'0'),job_id:j.id,event_name:e.title,event_time:e.time,gps_available:!!j.gps,internet_available:!!j.internet})),
+ checkpoints:[{job_id:j.id,type:'IN',checked_in:!!j.checkpointIn},{job_id:j.id,type:'OUT',checked_in:!!j.checkpointOut}],
+ evidence:(j.evidenceRecords||[]).map(e=>({...e,job_id:j.id})),
+ incidents:j.incidentAt?[{job_id:j.id,type:j.incidentType||'unknown',opened_at:j.incidentAt,closed_at:j.incidentClosedAt||null,driver_explanation:s.driverExplanation||null}]:[],
+ audit_events:s.events.map((e,i)=>({event_id:'AUD-DEMO-'+String(i+1).padStart(4,'0'),job_id:j.id,event_time:e.time,description:e.msg}))};
+}
+function exportDemoData(){const pack=exportNormalizedData();const blob=new Blob([JSON.stringify(pack,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='EGAT_Demo_Database_Export.json';a.click();URL.revokeObjectURL(url);}
+window.EGAT_DATA_ADAPTER={mode:'offline-demo',contract:EGAT_DATA_CONTRACT,exportData:exportNormalizedData,getJob:()=>structuredClone(s.job),subscribe:(listener)=>{if(typeof listener!=='function')throw new Error('listener must be function');const cb=e=>{if(e.detail?.job)listener(e.detail.job)};window.addEventListener('egat:job-updated',cb);return ()=>window.removeEventListener('egat:job-updated',cb)}};
+
+// Mobile-only public demo: EGAT staff website intentionally excluded.
+const staffFrame=document.getElementById('staffFrame');
+const fieldsFromStaff=['queueCalled','gate','loaded','weighted','qrIssued','dispatchAccepted','trackingStarted','arrived','receiverVerified','submitted','approved','gps','internet','routeDeviation','checkpointIn','checkpointOut','reviewRequired'];
+let lastStaffFingerprint='';
+let staffBridgeReady=false;
+function applyStaffJob(q){
+ if(!q)return;
+ const j=s.job;
+ if(q.incidentClosedAt && (!j.incidentClosedAt||Date.parse(q.incidentClosedAt)>Date.parse(j.incidentClosedAt))){j.incidentClosedAt=q.incidentClosedAt;if(!j.incidentAt||Date.parse(q.incidentClosedAt)>=Date.parse(j.incidentAt)){j.incidentOpen=false;s.stoppedMinutes=0;j.routeDeviation=false;}}
+ const before=JSON.stringify(fieldsFromStaff.map(k=>j[k]));
+ for(const k of fieldsFromStaff)if(typeof q[k]==='boolean')j[k]=q[k];
+ const previousAssignment=demoDriverAuthKey(j);const previousDestination=j.destination;
+ for(const k of ['plate','driver','material','destination','driverId','vehicleId','assignedReceiverId'])if(q[k]!=null)j[k]=q[k];
+ if(q.id===j.id)for(const k of ['customerId','customerCode','customerName'])if(k in q)j[k]=q[k];
+ if(previousAssignment!==demoDriverAuthKey(j))clearDriverAuth('EGAT เปลี่ยนผู้ขับ/รถ · ต้องยืนยันตัวตนใหม่สำหรับเที่ยวงานนี้');
+ if(previousDestination!==j.destination){s.receiverRegistered=false;s.receiverIdentityChecked=false;s.receiverAuthorizedJob=null;}
+ if(q.net!=null && j.weighted)j.net=Number(q.net);
+  if(q.reviewRound!=null && Number(q.reviewRound)>(j.reviewRound||0)){j.reviewRound=Number(q.reviewRound);j.reviewRequired=true;j.reviewReason=q.reviewReason||'EGAT ขอให้ส่งภาพใหม่';j.weightPhoto=false;j.emptyTruckPhoto=false;j.weightPhotoImage=null;j.emptyTruckImage=null;j.ticketNet=null;j.submitted=false;}
+  if(q.reviewReason!=null)j.reviewReason=String(q.reviewReason);
+  if(q.evidenceRound!=null)j.evidenceRound=Math.max(j.evidenceRound||0,Number(q.evidenceRound)||0);
+ const after=JSON.stringify(fieldsFromStaff.map(k=>j[k]));
+ if(before!==after){
+  s.events.unshift({time:new Date().toLocaleString('th-TH'),msg:'อัปเดตสถานะจากเว็บไซต์เจ้าหน้าที่ EGAT'});
+  try{localStorage.setItem(STORAGE,JSON.stringify(s))}catch{}
+ }
+ renderMobile();
+}
+window.addEventListener('message',e=>{
+ if(!staffBridgeReady || e.source!==staffFrame.contentWindow || !e.data || e.data.egatBridge!=='staff-update')return;
+ const fingerprint=JSON.stringify(e.data.job);
+ if(fingerprint===lastStaffFingerprint)return;
+ lastStaffFingerprint=fingerprint;
+ applyStaffJob(e.data.job);
+});
+function pushMobileToStaff(){
+ if(!staffFrame?.contentWindow)return;
+ staffFrame.contentWindow.postMessage({egatBridge:'mobile-update',job:{...s.job,receiverId:s.receiverId||null,receiverAuthorizedJob:s.receiverAuthorizedJob||null,receiverQty:(s.job.ticketNet!=null&&Number.isFinite(Number(s.job.ticketNet))?Number(s.job.ticketNet):null),ticketNet:(s.job.ticketNet!=null?Number(s.job.ticketNet):null),receiverName:s.receiverFullName,receiverIdentityChecked:s.receiverIdentityChecked,transportCompany:'ผู้ขนส่งตัวอย่าง',lastGPSAt:s.lastGPSAt,gpsAccuracy:s.gpsAccuracy,stoppedMinutes:s.stoppedMinutes,trackingGapMinutes:s.trackingGapMinutes,trackingGapStartedAt:s.trackingGapStartedAt,offlineQueueCount:(s.offlineQueue||[]).length,trackingEvents:s.trackingEvents||[],evidenceRecords:s.job.evidenceRecords||[],deliveryQRVerifiedAt:s.job.deliveryQRVerifiedAt||null,deliveryReceiverId:s.job.deliveryReceiverId||null,receiverConfirmedAt:s.job.receiverConfirmedAt||null,driverExplanation:s.driverExplanation,incidentOpen:!!s.job.incidentOpen,incidentType:s.job.incidentType||'',incidentAt:s.job.incidentAt||null,incidentClosedAt:s.job.incidentClosedAt||null,weightPhotoImage:s.job.weightPhotoImage||null,emptyTruckImage:s.job.emptyTruckImage||null,weightPhotoAt:s.job.weightPhotoAt||null,emptyTruckAt:s.job.emptyTruckAt||null}},'*');
+}
+
+// No EGAT staff iframe or cross-frame bridge in standalone app.
+// No staff iframe: standalone public mobile prototype.
+
+// Mobile actions push to the web portal after saving, without replacing its UI.
+const oldSave=save;
+save=function(msg){oldSave(msg);pushMobileToStaff();window.dispatchEvent(new CustomEvent('egat:job-updated',{detail:{job:structuredClone(s.job)}}))};
+async function resetDemo(){
+ if(LAN_ROLE!=='staff')return;
+ if(!confirm('รีเซ็ตงานจำลองของทุกเครื่องพร้อมกัน? คนขับและผู้รับจะกลับไปเริ่มใหม่ทันที'))return;
+ const b=document.getElementById('globalResetButton');if(b){b.disabled=true;b.textContent='กำลังรีเซ็ต...';}
+ try{
+  const res=await fetch('/api/reset',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({role:'staff',confirm:'RESET_ALL_DEVICES'})});
+  if(!res.ok)throw new Error('เซิร์ฟเวอร์ไม่ตอบรับ: HTTP '+res.status);
+  const result=await res.json();
+  if(!result.ok)throw new Error('ไม่สามารถรีเซ็ตได้');
+  // Reset is applied centrally: every role will detect resetEpoch in /api/state.
+  await lanPoll();
+ }catch(e){alert('รีเซ็ตไม่สำเร็จ: '+e.message);if(b){b.disabled=false;b.textContent='รีเซ็ตทุกเครื่อง';}}
+}
+
+// V34: e-POD is checked against the server's shared receiver acknowledgment.
+// It does NOT depend on the receiver's login session existing in the driver's browser.
+async function submitEpodFromSharedJob(){
+ if(LAN_ROLE!=='driver'){
+   alert('การส่ง e-POD ข้ามเครื่องต้องเปิดลิงก์ /driver โดยตรง (ไม่ใช่หน้าแอปตัวอย่างใน /staff)');
+   return;
+ }
+ const buttons=[...document.querySelectorAll('button')].filter(b=>b.textContent.includes('ส่งหลักฐาน e-POD'));
+ for(const b of buttons)b.disabled=true;
+ try{
+   // Fetch the authoritative state just before submitting, eliminating stale local checks.
+   const response=await fetch('/api/state',{cache:'no-store'});
+   if(!response.ok)throw new Error('ไม่สามารถโหลดสถานะล่าสุดจากเซิร์ฟเวอร์');
+   const snapshot=await response.json();
+   if(Number(snapshot.resetEpoch)!==Number(lanObservedResetEpoch)){
+      await lanPoll();throw new Error('ระบบเพิ่งรีเซ็ต กรุณาโหลดหน้าใหม่แล้วทำรายการอีกครั้ง');
+   }
+   const server=snapshot.job||{};
+   const missing=[];
+   if(!server.arrived)missing.push('รถยังไม่ถึงปลายทาง');
+   if(!server.receiverScanned)missing.push('ผู้รับยังไม่ได้สแกน Delivery QR');
+   if(!server.receiverIdentityChecked||!server.deliveryReceiverId||server.deliveryReceiverId!==(server.assignedReceiverId||'RCV-0001'))missing.push('การยืนยันสิทธิ์ผู้รับยังไม่ตรงกับ Job');
+   if(!server.weightPhoto)missing.push('ยังไม่มีภาพใบชั่งปลายทาง');
+   if(!server.emptyTruckPhoto)missing.push('ยังไม่มีภาพกระบะเปล่า');
+   if(missing.length){
+     alert('ยังส่ง e-POD ไม่ได้ เนื่องจาก:\n• '+missing.join('\n• ')+'\n\nกรุณาตรวจสอบในเครื่องที่เกี่ยวข้อง และลองใหม่อีกครั้ง');
+     await lanPoll();return;
+   }
+   const result=await fetch('/api/patch',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({role:'driver',clientId:LAN_UID,resetEpoch:lanObservedResetEpoch,job:{submitted:true,evidenceRound:Math.max(1,Number(server.evidenceRound)||0)}})
+   });
+   const reply=await result.json();
+   if(!result.ok||!reply.ok){
+     if(reply.error==='receiver-scan-not-confirmed')throw new Error('ข้อมูลการสแกน QR ของผู้รับยังไม่ถูกยืนยันในเซิร์ฟเวอร์ กรุณารอสักครู่');
+     throw new Error('เซิร์ฟเวอร์ไม่ยอมรับ e-POD: '+(reply.error||result.status));
+   }
+   // Synchronize browser from the accepted server response before displaying success.
+   await lanPoll();
+   alert('ส่ง e-POD ให้ EGAT สำเร็จแล้ว กำลังรอเจ้าหน้าที่ตรวจสอบ');
+ }catch(err){alert('ส่ง e-POD ไม่สำเร็จ: '+err.message)}
+ finally{for(const b of buttons)b.disabled=false;renderMobile()}
+}
+// Standalone public tester: no network APIs, no shared LAN state.
+let LAN_ROLE=null;
+function standalonePrepFromStaff(){
+ const j=s.job;
+ j.queueCalled=true;j.gate=true;j.loaded=true;j.weighted=true;j.qrIssued=true;
+ save('จำลอง EGAT อนุมัติเรียกคิว โหลดสินค้า ชั่งน้ำหนัก และออก Dispatch QR');
+}
+function standaloneReceiverScanned(){
+ const j=s.job;
+ if(!j.arrived||!j.qrUnlocked){alert('กรุณาดำเนินขั้นตอนขนส่งจนถึงปลายทางก่อน');return;}
+ j.receiverScanned=true;j.receiverIdentityChecked=true;
+ j.deliveryReceiverId=j.assignedReceiverId;
+ j.deliveryQRVerifiedAt=new Date().toISOString();
+ s.receiverId=j.assignedReceiverId;s.receiverAuthorizedJob=j.id;s.receiverIdentityChecked=true;
+ s.receiverFullName='สมใจ รับสินค้า';
+ save('จำลองผู้รับสินค้ายืนยันตัวตนและสแกน Delivery QR');
+}
+function standaloneArrive(){
+ const j=s.job;
+ j.queueCalled=true;j.gate=true;j.loaded=true;j.weighted=true;j.qrIssued=true;
+ j.dispatchAccepted=true;j.trackingStarted=true;
+ j.checkpointIn=true;j.checkpointOut=true;j.near=true;j.qrUnlocked=true;j.arrived=true;
+ if(!j.dispatchAt)j.dispatchAt=new Date().toISOString();
+ save('จำลองรถขนส่งถึงปลายทาง ผู้รับสามารถสแกน Delivery QR');
+}
+function standaloneEpodReceived(){
+ const j=s.job;
+ if(!j.receiverScanned){alert('กรุณาสแกน Delivery QR ให้สำเร็จก่อน');return;}
+ j.weightPhoto=true;j.emptyTruckPhoto=true;j.ticketNet=25.55;
+ j.weightPhotoAt=new Date().toISOString();j.emptyTruckAt=new Date().toISOString();
+ j.submitted=true;j.evidenceRound=Math.max(1,Number(j.evidenceRound)||0);
+ save('จำลองคนขับส่งภาพใบชั่งและภาพกระบะเปล่า พร้อม e-POD');
+}
+function standaloneApprove(){
+ const j=s.job;
+ if(!j.submitted){alert('กรุณาส่ง e-POD ก่อน');return;}
+ j.receiverVerified=true;j.receiverConfirmedAt=new Date().toISOString();j.approved=true;
+ const completedId=j.id;
+ s.logged=false;s.driverVerified=false;s.driverConfirm=false;s.driverAuthKey=null;s.authStep=0;
+ s.mobileView='credentials';s.mobileTab='home';s.driverRoundNotice=completedId;
+ save('จำลองผู้รับยืนยันสินค้าและ EGAT อนุมัติปิดงาน (คนขับกลับ Login)');
+}
+function submitEpodFromSharedJob(){
+ if(LAN_ROLE!=='driver')return;
+ const j=s.job;
+ const missing=[];
+ if(!j.arrived)missing.push('รถยังไม่ถึงปลายทาง');
+ if(!j.receiverScanned)missing.push('ผู้รับยังไม่ได้สแกน QR');
+ if(!j.weightPhoto)missing.push('ยังไม่ได้ถ่ายใบชั่งปลายทาง');
+ if(!j.emptyTruckPhoto)missing.push('ยังไม่ได้ถ่ายภาพกระบะเปล่า');
+ if(missing.length){alert('ยังส่ง e-POD ไม่ได้:\n• '+missing.join('\n• '));return;}
+ j.submitted=true;j.evidenceRound=Math.max(1,Number(j.evidenceRound)||0);
+ save('ส่ง e-POD สำเร็จ (จำลองในเครื่องนี้)');
+ alert('ส่ง e-POD สำเร็จ (จำลอง) • ทดลองขั้นตอน EGAT อนุมัติได้ที่แถบเครื่องมือ');
+}
+function resetPublicDemo(){
+ if(!confirm('เริ่มทดลองบทบาทนี้ใหม่ตั้งแต่ต้น?'))return;
+ s=initial();s.mobileRole=LAN_ROLE;s.mobileView='credentials';s.mobileTab='home';s.logged=false;
+ if(LAN_ROLE==='receiver')standaloneArrive();
+ save('เริ่มการทดลองใหม่');
+}
+function standaloneTools(){
+ const controls=document.getElementById('standaloneTools');
+ if(!controls)return;
+ const driver=LAN_ROLE==='driver';
+ controls.innerHTML=driver
+   ? `<span class="simLabel">จำลองขั้นตอนของ EGAT / ผู้รับ</span><button onclick="standalonePrepFromStaff()">1. EGAT เตรียมงาน</button><button onclick="standaloneReceiverScanned()">2. ผู้รับสแกน QR</button><button onclick="standaloneApprove()">3. EGAT ปิดงาน</button><button class="resetPublic" onclick="resetPublicDemo()">เริ่มใหม่</button>`
+   : `<span class="simLabel">จำลองขั้นตอนของคนขับ</span><button onclick="standaloneArrive()">1. รถถึงปลายทาง</button><button onclick="standaloneEpodReceived()">2. คนขับส่ง e-POD</button><button class="resetPublic" onclick="resetPublicDemo()">เริ่มใหม่</button>`;
+}
+mode('mobile');
+const standaloneCss=document.createElement('style');
+standaloneCss.textContent=`
+/* App-only: no desktop banner, no external role-selection page */
+body{background:#edf2f8}.layout,.layout.showMobile{display:grid!important;grid-template-columns:1fr!important;max-width:480px;margin:20px auto;padding:0 14px!important}.phonecol{width:100%;display:block!important}.phone{width:100%;margin:auto;max-width:410px}.phonehead{padding-right:132px}.backRole{position:absolute;right:14px;bottom:17px;background:#ffffff1a;color:white;border:1px solid #ffffff55;border-radius:9px;padding:7px 9px;font-weight:750;font-size:12px}.mobiletoolbar .switchrole{display:none!important}
+.simulateDetails{max-width:410px;margin:14px auto 25px;padding:10px 12px;border:1px solid #d9e4f1;background:#fff;border-radius:12px;color:#31517d;font-size:12px}.simulateDetails:not(.enabled){display:none}.simulateDetails summary{font-weight:800;cursor:pointer}.simulateDetails summary span{font-weight:400;color:#78879a}.simDock{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin:12px auto}.simDock .simLabel{flex:0 0 100%;text-align:center;color:#586e8c;font-size:12px}.simDock button{border:1px solid #bfd0e9;border-radius:9px;padding:9px;background:#edf3ff;color:#173c7e;font-weight:700;font-size:12px}.simDock .resetPublic{background:#f6f7fa;color:#54657f}.simHelp{color:#79889c;line-height:1.6;font-size:11px;margin-bottom:0}
+.roleWelcome{display:grid;gap:8px;justify-items:center;text-align:center;padding:14px 2px 20px}.roleWelcome .roleGlyph{width:58px;height:58px;border-radius:18px;background:#fff1c5;display:grid;place-items:center;color:#173b74;font-size:32px;margin-bottom:8px}.roleWelcome h2{font-size:25px!important;margin:0}.roleWelcome p{font-size:14px;color:#62738a;line-height:1.65;margin:2px 0 8px}.roleChoice{width:100%;border:1px solid #d6e2f2;background:#fff;padding:19px 16px;border-radius:16px;text-align:left;display:flex;align-items:center;gap:15px;box-shadow:0 5px 13px #18315c0b}.roleChoice + .roleChoice{margin-top:12px}.roleChoice .choiceIcon{display:grid;place-items:center;width:48px;height:48px;flex:0 0 48px;border-radius:13px;background:#e9f1fc;color:#164582}.roleChoice strong{display:block;color:#16386d;font-size:18px}.roleChoice small{display:block;color:#5e7088;font-size:13px;line-height:1.5}.roleChoice .choiceChevron{margin-left:auto;color:#1b549e;font-size:24px}.roleFoot{text-align:center;color:#8693a5;font-size:12px;line-height:1.6;margin-top:22px}
+@media(max-width:530px){body{background:#f3f6fa}.layout{margin:0 auto!important;padding:0!important;max-width:100%}.phone{height:100dvh!important;max-width:none!important;border:0!important;border-radius:0!important;padding:0!important;box-shadow:none!important}.phonescreen{border-radius:0!important}.phonehead{height:95px}.mobilecontent{padding-bottom:100px}.simulateDetails{margin:12px 12px 24px}.roleWelcome{padding:24px 2px 18px}}
+`;
+document.head.appendChild(standaloneCss);
+function renderRoleSelection(){
+ document.getElementById('phoneRoleSubtitle').textContent='Driver & Receiver Application';
+ return `<div class="roleWelcome"><div class="roleGlyph">ϟ</div><h2>ยินดีต้อนรับ</h2><p>EGAT Smart Logistics<br>กรุณาเลือกบทบาทเพื่อเริ่มทดลองใช้งาน</p></div>
+ <button class="roleChoice" onclick="selectStandaloneRole('driver')"><span class="choiceIcon">${icon('truck')}</span><span><strong>คนขับรถ</strong><small>Driver · รับงานและส่งสินค้า</small></span><span class="choiceChevron">›</span></button>
+ <button class="roleChoice" onclick="selectStandaloneRole('receiver')"><span class="choiceIcon">${icon('box')}</span><span><strong>ผู้รับสินค้า</strong><small>Receiver · ตรวจสอบและรับมอบสินค้า</small></span><span class="choiceChevron">›</span></button>
+ <div class="roleFoot">ระบบจำลองสำหรับทดสอบ UX/UI<br>ข้อมูลทั้งหมดเป็นข้อมูลสมมติ</div>`;
+}
+function selectStandaloneRole(role){
+ if(role!=='driver'&&role!=='receiver')return;
+ LAN_ROLE=role;s=initial();s.logged=false;s.mobileRole=role;s.mobileTab='home';s.mobileView='credentials';
+ if(role==='receiver'&&!s.job.arrived)standaloneArrive();
+ document.getElementById('simulateDetails').classList.add('enabled');
+ document.getElementById('simulateDetails').open=false;
+ standaloneTools();renderMobile();window.scrollTo(0,0);
+}
+function exitStandaloneRole(){
+ LAN_ROLE=null;s=initial();s.logged=false;s.mobileRole=null;s.mobileView='login';
+ document.getElementById('simulateDetails').classList.remove('enabled');
+ document.getElementById('simulateDetails').open=false;
+ renderMobile();window.scrollTo(0,0);
+}
+renderMobile();
+</script></body></html>
